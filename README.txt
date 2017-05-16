@@ -19,7 +19,8 @@ a Lustre filesystem :
 
 The command 'rbh-monitoring' is to be scheduled in a crontab to run
 periodically.
-See the associated grafana dashboard here : 
+See the associated grafana dashboard here : https://grafana.com/dashboards/2276
+Or go to Grafana.com and import the rbh-monitoring.json file
 
 II - Compiling
 ==============

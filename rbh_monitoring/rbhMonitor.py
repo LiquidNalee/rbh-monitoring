@@ -4,7 +4,7 @@ import socket
 import time
 import argparse
 from sys import exit
-from rbhMetric import config
+from rbh_monitoring import config
 import MySQLdb
 
 
