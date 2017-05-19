@@ -164,16 +164,16 @@ def graph():
             nextRow = db.fetchone()
             while (j < 9):
 
-                if (nextRow is not None & nextRow[0] == timespan[j]):
-                    row = (nextRow[1] + row[1], nextRow[2] + row[2])
+                if (nextRow is not None and nextRow[0] == timespan[j]):
+                    row = (nextRow[1] + row[0], nextRow[2] + row[1])
                     nextRow = db.fetchone()
 
                 try:
-                    message += '%s.' + prefix[i] + 'TempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, timespan[j], row[1], begin)
-                    message += '%s.' + prefix[i] + 'TempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, timespan[j], row[1] / total[0], begin)
-                    message += '%s.' + prefix[i] + 'TempGraph.size.%s %i %s\n' % (PATH_GRAPH, timespan[j], row[2], begin)
-                    message += '%s.' + prefix[i] + 'TempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, timespan[j], row[2] / total[1], begin)
-                    message += '%s.' + prefix[i] + 'TempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, timespan[j], row[2] / row[1], begin)
+                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[0], begin)
+                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[0] / total[0], begin)
+                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1], begin)
+                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / total[1], begin)
+                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / row[0], begin)
                 except:
                     print 'Error: Data failed to be processed'
                     exit(1)
@@ -200,8 +200,7 @@ def graph():
         exit(1)
 
     try:
-#       sock.sendall(message)
-        print(message)
+        sock.sendall(message)
         message = '%s.execTime %s %s' % (PATH_GRAPH, time.time() - begin, begin)
         sock.sendall(message)
     except:
