@@ -145,6 +145,7 @@
             "1 day": "#7EB26D",
             "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1d": "#7EB26D",
@@ -1123,5 +1124,5 @@
   },
   "timezone": "browser",
   "title": "rbhMonitoring",
-  "version": 20
+  "version": 21
 }
