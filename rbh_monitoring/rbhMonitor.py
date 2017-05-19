@@ -121,8 +121,11 @@ def graph():
 
     try:
         db.execute("""
-        SELECT modif, cntM, volM, cntA, volA, cntC, volC, cntD, volD FROM
-            (SELECT modif, SUM(c) AS cntM, SUM(v) AS volM FROM (
+        SELECT modif, IFNULL(cntM, 0), IFNULL(volM, 0),
+                IFNULL(cntA, 0), IFNULL(volA, 0),
+                IFNULL(cntC, 0), IFNULL(volC, 0),
+                IFNULL(cntD, 0), IFNULL(volD, 0)
+            FROM(SELECT modif, SUM(c) AS cntM, SUM(v) AS volM FROM (
                 SELECT c, v, CASE
                     WHEN log_age < ROUND(LOG(10,900),5) THEN '15min'
                     WHEN log_age < ROUND(LOG(10,3600),5) THEN '1h'
@@ -201,6 +204,17 @@ def graph():
                     FROM ENTRIES GROUP BY log_age)
                 AS ps )
             AS stats GROUP BY chng ) chngdb_tb ON chngdb_tb.chng = modif_tb.modif
+            ORDER BY CASE modif
+                WHEN '15min' THEN 1
+                WHEN '1h' THEN 2
+                WHEN '12h' THEN 3
+                WHEN '1d' THEN 4
+                WHEN '1w' THEN 5
+                WHEN '1m' THEN 6
+                WHEN '6m' THEN 7
+                WHEN '1y' THEN 8
+                ELSE 9
+            END
         """)
     except:
         print 'Error: Query failed to execute'
@@ -208,28 +222,52 @@ def graph():
     else:
         try:
             row = db.fetchone()
-            while (row is not None):
-                if (row[1] is not None):
-                    message += '%s.modTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[1], begin)
-                    message += '%s.modTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[1] / total[0], begin)
-                    message += '%s.modTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[2], begin)
-                    message += '%s.modTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[2] / total[1], begin)
-                if (row[3] is not None):
-                    message += '%s.acsTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[3], begin)
-                    message += '%s.acsTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[3] / total[0], begin)
-                    message += '%s.acsTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[4], begin)
-                    message += '%s.acsTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[4] / total[1], begin)
-                if (row[5] is not None):
-                    message += '%s.creatTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[5], begin)
-                    message += '%s.creatTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[5] / total[0], begin)
-                    message += '%s.creatTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[6], begin)
-                    message += '%s.creatTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[6] / total[1], begin)
-                if (row[7] is not None):
-                    message += '%s.dbTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[7], begin)
-                    message += '%s.dbTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[7] / total[0], begin)
-                    message += '%s.dbTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[8], begin)
-                    message += '%s.dbTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[8] / total[1], begin)
-                row = db.fetchone()
+            nextRow = db.fetchone()
+            while (nextRow is not None):
+                message += '%s.modTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[1], begin)
+                message += '%s.modTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[1] / total[0], begin)
+                message += '%s.modTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[2], begin)
+                message += '%s.modTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[2] / total[1], begin)
+
+                message += '%s.acsTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[3], begin)
+                message += '%s.acsTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[3] / total[0], begin)
+                message += '%s.acsTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[4], begin)
+                message += '%s.acsTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[4] / total[1], begin)
+                message += '%s.acsTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[4] / row[3], begin)
+
+                message += '%s.creatTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[5], begin)
+                message += '%s.creatTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[5] / total[0], begin)
+                message += '%s.creatTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[6], begin)
+                message += '%s.creatTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[6] / total[1], begin)
+                message += '%s.creatTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[6] / row[5], begin)
+
+                message += '%s.dbTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[7], begin)
+                message += '%s.dbTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[7] / total[0], begin)
+                message += '%s.dbTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[8], begin)
+                message += '%s.dbTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[8] / total[1], begin)
+
+                row = (nextRow[0], nextRow[1] + row[1], nextRow[2] + row[2], nextRow[3] + row[3], nextRow[4] + row[4], nextRow[5] + row[5], nextRow[6] + row[6], nextRow[7] + row[7], nextRow[8] + row[8])
+                nextRow = db.fetchone()
+
+            message += '%s.modTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[1], begin)
+            message += '%s.modTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[1] / total[0], begin)
+            message += '%s.modTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[2], begin)
+            message += '%s.modTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[2] / total[1], begin)
+
+            message += '%s.acsTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[3], begin)
+            message += '%s.acsTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[3] / total[0], begin)
+            message += '%s.acsTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[4], begin)
+            message += '%s.acsTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[4] / total[1], begin)
+
+            message += '%s.creatTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[5], begin)
+            message += '%s.creatTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[5] / total[0], begin)
+            message += '%s.creatTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[6], begin)
+            message += '%s.creatTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[6] / total[1], begin)
+
+            message += '%s.dbTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[7], begin)
+            message += '%s.dbTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[7] / total[0], begin)
+            message += '%s.dbTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[8], begin)
+            message += '%s.dbTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[8] / total[1], begin)
         except:
             print 'Error: Data failed to be processed'
             exit(1)
