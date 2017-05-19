@@ -151,7 +151,9 @@
             "1h": "#EF843C",
             "1min": "#1F78C1",
             "1w": "#6ED0E0",
-            "over1y": "#3F2B5B",
+            "1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "over1y": "#052B51",
             "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
             "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
             "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
@@ -193,6 +195,12 @@
               "hide": false,
               "refId": "H",
               "target": "alias($prefix.acsTempGraph.sizeAvg.over1y, 'over1y')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "I",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.1y, '1 year')",
               "textEditor": false
             },
             {
@@ -272,12 +280,16 @@
         {
           "aliasColors": {
             "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1d": "#7EB26D",
             "1h": "#EF843C",
             "1w": "#6ED0E0",
+            "6 month": "#705DA0",
+            "over 1y": "#052B51",
             "sboucen.acsTempGraph.size.12h": "#EAB839",
             "sboucen.acsTempGraph.size.15min": "#BF1B00",
             "sboucen.acsTempGraph.size.1d": "#7EB26D",
@@ -320,6 +332,11 @@
             },
             {
               "refId": "H",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1y, '1 year')",
+              "textEditor": false
+            },
+            {
+              "refId": "I",
               "target": "alias($prefix.acsTempGraph.sizeFileAvg.6m, '6 month')",
               "textEditor": false
             },
@@ -402,10 +419,12 @@
             "1 day": "#7EB26D",
             "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1h": "#EF843C",
-            "over 1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "over 1y": "#052B51",
             "sboucen.acsTempGraph.cnt.12h": "#EAB839",
             "sboucen.acsTempGraph.cnt.15min": "#BF1B00",
             "sboucen.acsTempGraph.cnt.1d": "#7EB26D",
@@ -444,6 +463,11 @@
             {
               "refId": "H",
               "target": "alias($prefix.acsTempGraph.cnt.over1y, 'over 1y')",
+              "textEditor": false
+            },
+            {
+              "refId": "I",
+              "target": "alias($prefix.acsTempGraph.cnt.1y, '1 year')",
               "textEditor": false
             },
             {
@@ -516,10 +540,12 @@
             "1 day": "#7EB26D",
             "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1h": "#EF843C",
-            "over 1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "over 1y": "#052B51",
             "sboucen.creatTempGraph.cnt.12h": "#EAB839",
             "sboucen.creatTempGraph.cnt.15min": "#BF1B00",
             "sboucen.creatTempGraph.cnt.1d": "#7EB26D",
@@ -556,8 +582,13 @@
           "steppedLine": false,
           "targets": [
             {
-              "refId": "H",
+              "refId": "I",
               "target": "alias($prefix.creatTempGraph.cnt.over1y, 'over 1y')",
+              "textEditor": false
+            },
+            {
+              "refId": "H",
+              "target": "alias($prefix.creatTempGraph.cnt.1y, '1 year')",
               "textEditor": false
             },
             {
@@ -643,11 +674,12 @@
             "1 day": "#7EB26D",
             "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1h": "#EF843C",
-            "6 month": "#6D1F62",
-            "over 1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "over 1y": "#052B51",
             "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
             "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
             "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
@@ -699,6 +731,12 @@
               "hide": false,
               "refId": "H",
               "target": "alias($prefix.creatTempGraph.sizeAvg.over1y, 'over 1y')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "G",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.1y, '1 year')",
               "textEditor": false
             },
             {
@@ -776,10 +814,15 @@
         {
           "aliasColors": {
             "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1h": "#EF843C",
+            "1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "over 1y": "#052B51",
             "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
             "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
             "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
@@ -829,8 +872,14 @@
           "targets": [
             {
               "hide": false,
-              "refId": "H",
+              "refId": "I",
               "target": "alias($prefix.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "H",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1y, '1 year')",
               "textEditor": false
             },
             {
@@ -873,7 +922,7 @@
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "creatTempGraph(size)",
+          "title": "TemperatureGraph-Creation (avgFileSize)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1044,7 +1093,7 @@
     ]
   },
   "time": {
-    "from": "now-12h",
+    "from": "now-30m",
     "to": "now"
   },
   "timepicker": {
@@ -1074,5 +1123,5 @@
   },
   "timezone": "browser",
   "title": "rbhMonitoring",
-  "version": 19
+  "version": 20
 }
