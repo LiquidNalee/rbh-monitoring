@@ -52,51 +52,56 @@
       "height": 230,
       "panels": [
         {
-          "aliasColors": {},
+          "aliasColors": {
+            "ChangelogCount_UNLNK)": "#BF1B00",
+            "derivative(sboucen.chnglogActivity.ChangelogCount_CREAT)": "#7EB26D",
+            "derivative(sboucen.chnglogActivity.ChangelogCount_UNLNK)": "#BF1B00"
+          },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "decimals": 2,
-          "description": "Time in seconds to execute the monitoring script",
-          "fill": 1,
+          "description": "Represents the derivative of the counter for changelog events consumed by Robinhood (Change the filter settings to select event types)",
+          "fill": 0,
           "height": "200",
-          "id": 1,
+          "id": 9,
           "legend": {
-            "avg": true,
-            "current": true,
-            "max": true,
+            "avg": false,
+            "current": false,
+            "hideEmpty": false,
+            "hideZero": false,
+            "max": false,
             "min": false,
             "show": true,
             "total": false,
-            "values": true
+            "values": false
           },
           "lines": true,
-          "linewidth": 1,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 5,
-          "points": false,
+          "pointradius": 1,
+          "points": true,
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 12,
           "stack": false,
-          "steppedLine": false,
+          "steppedLine": true,
           "targets": [
             {
               "refId": "A",
-              "target": "$prefix.execTime"
+              "target": "aliasByMetric(derivative($prefix.chnglogActivity.$changelogFilter))"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "execTime",
+          "title": "ChangeLog Events",
           "tooltip": {
             "shared": true,
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": false,
+          "transparent": true,
           "type": "graph",
           "xaxis": {
             "mode": "time",
@@ -106,7 +111,7 @@
           },
           "yaxes": [
             {
-              "format": "s",
+              "format": "short",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -138,6 +143,7 @@
         {
           "aliasColors": {
             "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
             "12h": "#EAB839",
             "15min": "#BF1B00",
@@ -145,6 +151,7 @@
             "1h": "#EF843C",
             "1min": "#1F78C1",
             "1w": "#6ED0E0",
+            "over1y": "#3F2B5B",
             "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
             "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
             "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
@@ -155,21 +162,22 @@
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
           "decimals": 1,
-          "description": "Temperature graph on the average size of accessed files",
-          "fill": 6,
-          "height": "200",
+          "description": "Represents the sum of the size of the files accessed in a given timespan in a percentage of the total filesystem's size",
+          "fill": 1,
+          "height": "230",
           "id": 2,
           "legend": {
-            "avg": true,
-            "current": false,
+            "avg": false,
+            "current": true,
             "max": false,
             "min": false,
+            "rightSide": false,
             "show": true,
             "total": false,
             "values": true
           },
           "lines": true,
-          "linewidth": 0,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
@@ -178,32 +186,20 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias($prefix.acsTempGraph.sizeAvg.15min, '15min')"
+              "hide": false,
+              "refId": "H",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.over1y, 'over1y')",
+              "textEditor": false
             },
             {
               "hide": false,
-              "refId": "B",
-              "target": "alias($prefix.acsTempGraph.sizeAvg.1h, '1h')"
-            },
-            {
-              "hide": false,
-              "refId": "C",
-              "target": "alias($prefix.acsTempGraph.sizeAvg.12h, '12h')"
-            },
-            {
-              "hide": false,
-              "refId": "D",
-              "target": "alias($prefix.acsTempGraph.sizeAvg.1d, '1 day')"
-            },
-            {
-              "hide": false,
-              "refId": "E",
-              "target": "alias($prefix.acsTempGraph.sizeAvg.1w, '1 week')"
+              "refId": "G",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.6m, '6 month')",
+              "textEditor": false
             },
             {
               "hide": false,
@@ -212,14 +208,35 @@
             },
             {
               "hide": false,
-              "refId": "G",
-              "target": "alias($prefix.acsTempGraph.sizeAvg.6m, '6 month')"
+              "refId": "E",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.1w, '1 week')"
+            },
+            {
+              "hide": false,
+              "refId": "D",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.1d, '1 day')"
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.12h, '12h')"
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.1h, '1h')"
+            },
+            {
+              "hide": false,
+              "refId": "A",
+              "target": "alias($prefix.acsTempGraph.sizeAvg.15min, '15min')",
+              "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "acsTempGraph(sizeAvg)",
+          "title": "TemperatureGraph-Access (size)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -270,10 +287,10 @@
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "description": "Temperature graph on the size of accessed files",
-          "fill": 6,
-          "height": "200",
-          "id": 3,
+          "description": "Represents the average size of files accessed in a given timespan",
+          "fill": 0,
+          "height": "230",
+          "id": 10,
           "legend": {
             "avg": true,
             "current": false,
@@ -284,51 +301,58 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 0,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 5,
+          "pointradius": 2,
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias($prefix.acsTempGraph.size.15min, '15min')"
+              "refId": "G",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "textEditor": false
             },
             {
-              "refId": "B",
-              "target": "alias($prefix.acsTempGraph.size.1h, '1h')"
-            },
-            {
-              "refId": "C",
-              "target": "alias($prefix.acsTempGraph.size.12h, '12h')"
-            },
-            {
-              "refId": "D",
-              "target": "alias($prefix.acsTempGraph.size.1d, '1 day')"
-            },
-            {
-              "refId": "E",
-              "target": "alias($prefix.acsTempGraph.size.1w, '1 week')"
+              "refId": "H",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.6m, '6 month')",
+              "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias($prefix.acsTempGraph.size.1m, '1 month')"
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1m, '1 month')",
+              "textEditor": false
             },
             {
-              "refId": "G",
-              "target": "alias($prefix.acsTempGraph.size.6m, '6 month')"
+              "refId": "E",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1w, '1 week')"
+            },
+            {
+              "refId": "D",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1d, '1 day')"
+            },
+            {
+              "refId": "C",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.12h, '12h')"
+            },
+            {
+              "refId": "B",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1h, '1h')"
+            },
+            {
+              "refId": "A",
+              "target": "alias($prefix.acsTempGraph.sizeFileAvg.15min, '15min')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "acsTempGraph(size)",
+          "title": "TemperatureGraph-Access (avgFileSize)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -376,10 +400,12 @@
         {
           "aliasColors": {
             "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1h": "#EF843C",
+            "over 1y": "#3F2B5B",
             "sboucen.acsTempGraph.cnt.12h": "#EAB839",
             "sboucen.acsTempGraph.cnt.15min": "#BF1B00",
             "sboucen.acsTempGraph.cnt.1d": "#7EB26D",
@@ -389,13 +415,13 @@
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "description": "Temperature graph on the average number of accessed files",
-          "fill": 6,
-          "height": "200",
+          "description": "Represents the number of files accessed in a given timespan",
+          "fill": 1,
+          "height": "230",
           "id": 4,
           "legend": {
-            "avg": true,
-            "current": false,
+            "avg": false,
+            "current": true,
             "max": false,
             "min": false,
             "show": true,
@@ -403,7 +429,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 0,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
@@ -412,42 +438,47 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias($prefix.acsTempGraph.cnt.15min, '15min')"
+              "refId": "H",
+              "target": "alias($prefix.acsTempGraph.cnt.over1y, 'over 1y')",
+              "textEditor": false
             },
             {
-              "refId": "B",
-              "target": "alias($prefix.acsTempGraph.cnt.1h, '1h')"
-            },
-            {
-              "refId": "C",
-              "target": "alias($prefix.acsTempGraph.cnt.12h, '12h')"
-            },
-            {
-              "refId": "D",
-              "target": "alias($prefix.acsTempGraph.cnt.1d, '1 day')"
-            },
-            {
-              "refId": "E",
-              "target": "alias($prefix.acsTempGraph.cnt.1w, '1 week')"
+              "refId": "G",
+              "target": "alias($prefix.acsTempGraph.cnt.6m, '6 month')"
             },
             {
               "refId": "F",
               "target": "alias($prefix.acsTempGraph.cnt.1m, '1 month')"
             },
             {
-              "refId": "G",
-              "target": "alias($prefix.acsTempGraph.cnt.6m, '6 month')"
+              "refId": "E",
+              "target": "alias($prefix.acsTempGraph.cnt.1w, '1 week')"
+            },
+            {
+              "refId": "D",
+              "target": "alias($prefix.acsTempGraph.cnt.1d, '1 day')"
+            },
+            {
+              "refId": "C",
+              "target": "alias($prefix.acsTempGraph.cnt.12h, '12h')"
+            },
+            {
+              "refId": "B",
+              "target": "alias($prefix.acsTempGraph.cnt.1h, '1h')"
+            },
+            {
+              "refId": "A",
+              "target": "alias($prefix.acsTempGraph.cnt.15min, '15min')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "acsTempGraph(cnt)",
+          "title": "TemperatureGraph-Access (cnt)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -483,10 +514,12 @@
         {
           "aliasColors": {
             "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1h": "#EF843C",
+            "over 1y": "#3F2B5B",
             "sboucen.creatTempGraph.cnt.12h": "#EAB839",
             "sboucen.creatTempGraph.cnt.15min": "#BF1B00",
             "sboucen.creatTempGraph.cnt.1d": "#7EB26D",
@@ -496,13 +529,13 @@
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "description": "Temperature graph on the number of created files",
-          "fill": 6,
-          "height": "200",
+          "description": "Represents the number of files created in a given timespan",
+          "fill": 1,
+          "height": "230",
           "id": 5,
           "legend": {
-            "avg": true,
-            "current": false,
+            "avg": false,
+            "current": true,
             "max": false,
             "min": false,
             "show": true,
@@ -510,7 +543,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 0,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
@@ -519,38 +552,48 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias($prefix.creatTempGraph.cnt.15min, '15min')"
+              "refId": "H",
+              "target": "alias($prefix.creatTempGraph.cnt.over1y, 'over 1y')",
+              "textEditor": false
             },
             {
-              "refId": "B",
-              "target": "alias($prefix.creatTempGraph.cnt.1h, '1h')"
+              "refId": "G",
+              "target": "alias($prefix.creatTempGraph.cnt.6m, '6 month')",
+              "textEditor": false
             },
             {
-              "refId": "C",
-              "target": "alias($prefix.creatTempGraph.cnt.12h, '12h')"
-            },
-            {
-              "refId": "D",
-              "target": "alias($prefix.creatTempGraph.cnt.1d, '1 day')"
+              "refId": "F",
+              "target": "alias($prefix.creatTempGraph.cnt.1m, '1 month')"
             },
             {
               "refId": "E",
               "target": "alias($prefix.creatTempGraph.cnt.1w, '1 week')"
             },
             {
-              "refId": "F",
-              "target": "alias($prefix.creatTempGraph.cnt.1m, '1 month')"
+              "refId": "D",
+              "target": "alias($prefix.creatTempGraph.cnt.1d, '1 day')"
+            },
+            {
+              "refId": "C",
+              "target": "alias($prefix.creatTempGraph.cnt.12h, '12h')"
+            },
+            {
+              "refId": "B",
+              "target": "alias($prefix.creatTempGraph.cnt.1h, '1h')"
+            },
+            {
+              "refId": "A",
+              "target": "alias($prefix.creatTempGraph.cnt.15min, '15min')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "creatGraphTemp(cnt)",
+          "title": "TemperatureGraph-Creation (cnt)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -598,10 +641,13 @@
         {
           "aliasColors": {
             "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
             "1 week": "#6ED0E0",
             "12h": "#EAB839",
             "15min": "#BF1B00",
             "1h": "#EF843C",
+            "6 month": "#6D1F62",
+            "over 1y": "#3F2B5B",
             "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
             "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
             "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
@@ -618,13 +664,13 @@
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
           "decimals": 1,
-          "description": "Temperature graph on the average size of created files",
-          "fill": 6,
-          "height": "200",
+          "description": "Represents the percentage in size of the files created in a given timespan compared to the total size of the filesystem",
+          "fill": 1,
+          "height": "230",
           "id": 7,
           "legend": {
-            "avg": true,
-            "current": false,
+            "avg": false,
+            "current": true,
             "max": false,
             "min": false,
             "show": true,
@@ -632,36 +678,39 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 0,
+          "linewidth": 2,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
           "pointradius": 5,
           "points": false,
           "renderer": "flot",
-          "seriesOverrides": [],
+          "seriesOverrides": [
+            {
+              "alias": "over 1y",
+              "yaxis": 1
+            }
+          ],
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias($prefix.creatTempGraph.sizeAvg.15min, '15min')"
+              "hide": false,
+              "refId": "H",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.over1y, 'over 1y')",
+              "textEditor": false
             },
             {
               "hide": false,
-              "refId": "B",
-              "target": "alias($prefix.creatTempGraph.sizeAvg.1h, '1h')"
+              "refId": "I",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.6m, '6 month')",
+              "textEditor": false
             },
             {
               "hide": false,
-              "refId": "C",
-              "target": "alias($prefix.creatTempGraph.sizeAvg.12h, '12h')"
-            },
-            {
-              "hide": false,
-              "refId": "E",
-              "target": "alias($prefix.creatTempGraph.sizeAvg.1d, '1 day')"
+              "refId": "D",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.1m, '1 month')"
             },
             {
               "hide": false,
@@ -670,14 +719,28 @@
             },
             {
               "hide": false,
-              "refId": "D",
-              "target": "alias($prefix.creatTempGraph.sizeAvg.1m, '1 month')"
+              "refId": "E",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.1d, '1 day')"
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.12h, '12h')"
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.1h, '1h')"
+            },
+            {
+              "refId": "A",
+              "target": "alias($prefix.creatTempGraph.sizeAvg.15min, '15min')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "creatTempGraph(sizeAvg)",
+          "title": "TemperatureGraph-Creation (size)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -738,9 +801,9 @@
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
           "decimals": 1,
-          "description": "Temperature graph on the size of created files",
-          "fill": 6,
-          "height": "200",
+          "description": "Represents the average size of files created in a given timespan",
+          "fill": 0,
+          "height": "230",
           "id": 8,
           "legend": {
             "avg": true,
@@ -752,7 +815,7 @@
             "values": true
           },
           "lines": true,
-          "linewidth": 0,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
@@ -761,37 +824,50 @@
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 6,
-          "stack": true,
+          "stack": false,
           "steppedLine": false,
           "targets": [
             {
-              "refId": "A",
-              "target": "alias($prefix.creatTempGraph.size.15min, '15min')"
+              "hide": false,
+              "refId": "H",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "textEditor": false
             },
             {
               "hide": false,
-              "refId": "B",
-              "target": "alias($prefix.creatTempGraph.size.1h, '1h')"
-            },
-            {
-              "hide": false,
-              "refId": "C",
-              "target": "alias($prefix.creatTempGraph.size.12h, '12h')"
-            },
-            {
-              "hide": false,
-              "refId": "E",
-              "target": "alias($prefix.creatTempGraph.size.1d, '1 day')"
-            },
-            {
-              "hide": false,
-              "refId": "F",
-              "target": "alias($prefix.creatTempGraph.size.1w, '1 week')"
+              "refId": "G",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.6m, '6 month')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.creatTempGraph.size.1m, '1 month')"
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1m, '1 month')",
+              "textEditor": false
+            },
+            {
+              "hide": false,
+              "refId": "F",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1w, '1 week')"
+            },
+            {
+              "hide": false,
+              "refId": "E",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1d, '1 day')"
+            },
+            {
+              "hide": false,
+              "refId": "C",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.12h, '12h')"
+            },
+            {
+              "hide": false,
+              "refId": "B",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1h, '1h')"
+            },
+            {
+              "refId": "A",
+              "target": "alias($prefix.creatTempGraph.sizeFileAvg.15min, '15min')"
             }
           ],
           "thresholds": [],
@@ -843,54 +919,51 @@
       "height": 146,
       "panels": [
         {
-          "aliasColors": {
-            "ChangelogCount_UNLNK)": "#BF1B00",
-            "derivative(sboucen.chnglogActivity.ChangelogCount_CREAT)": "#7EB26D",
-            "derivative(sboucen.chnglogActivity.ChangelogCount_UNLNK)": "#BF1B00"
-          },
+          "aliasColors": {},
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "description": "Graph of lustre changelog activity (derivative)",
-          "fill": 0,
+          "decimals": 2,
+          "description": "Time in seconds to execute the monitoring script",
+          "fill": 1,
           "height": "200",
-          "id": 9,
+          "id": 1,
           "legend": {
             "avg": true,
-            "current": false,
-            "max": false,
+            "current": true,
+            "max": true,
             "min": false,
             "show": true,
             "total": false,
             "values": true
           },
           "lines": true,
-          "linewidth": 2,
+          "linewidth": 1,
           "links": [],
           "nullPointMode": "null as zero",
           "percentage": false,
-          "pointradius": 1,
-          "points": true,
+          "pointradius": 5,
+          "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
           "span": 12,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByMetric(derivative($prefix.chnglogActivity.$changelogFilter))"
+              "target": "alias($prefix.execTime, 'execTime')"
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "ChangeLog Events",
+          "title": "execTime",
           "tooltip": {
             "shared": true,
             "sort": 0,
             "value_type": "individual"
           },
-          "transparent": true,
+          "transparent": false,
           "type": "graph",
           "xaxis": {
             "mode": "time",
@@ -900,7 +973,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "s",
               "label": null,
               "logBase": 1,
               "max": null,
@@ -971,7 +1044,7 @@
     ]
   },
   "time": {
-    "from": "now-3h",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
@@ -1001,5 +1074,5 @@
   },
   "timezone": "browser",
   "title": "rbhMonitoring",
-  "version": 12
+  "version": 19
 }
