@@ -111,6 +111,13 @@ def graph():
         db = connection.cursor()
 
     try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock.connect((CARBON_SERVER, CARBON_PORT))
+    except:
+        print 'Error: Connection to carbon server failed'
+        exit(1)
+
+    try:
         db.execute("""SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES""")
     except:
         print 'Error: Query failed to execute'
@@ -178,6 +185,8 @@ def graph():
                     print 'Error: Data failed to be processed'
                     exit(1)
 
+                sock.sendall(message)
+                message = ''
                 j += 1
         i += 2
 
@@ -187,20 +196,14 @@ def graph():
         print 'Error: Query failed to execute'
         exit(1)
     else:
+        message = ''
         row = db.fetchone()
         while (row is not None):
             message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], begin)
             row = db.fetchone()
-
-    try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.connect((CARBON_SERVER, CARBON_PORT))
-    except:
-        print 'Error: Connection to carbon server failed'
-        exit(1)
-
-    try:
         sock.sendall(message)
+
+    try:
         message = '%s.execTime %s %s' % (PATH_GRAPH, time.time() - begin, begin)
         sock.sendall(message)
     except:
