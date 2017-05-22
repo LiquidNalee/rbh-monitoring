@@ -180,7 +180,7 @@ def graph():
                     message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[0] / total[0], begin)
                     message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1], begin)
                     message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / total[1], begin)
-                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / row[0], begin)
+                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / (row[0] if row[0] else 1), begin)
                 except:
                     print 'Error: Data failed to be processed'
                     exit(1)
