@@ -111,7 +111,7 @@ def graph():
         db = connection.cursor()
 
     try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((CARBON_SERVER, CARBON_PORT))
     except:
         print 'Error: Connection to carbon server failed'
