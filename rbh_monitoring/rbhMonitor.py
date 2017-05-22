@@ -111,6 +111,13 @@ def graph():
         db = connection.cursor()
 
     try:
+        sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+        sock.connect((CARBON_SERVER, CARBON_PORT))
+    except:
+        print 'Error: Connection to carbon server failed'
+        exit(1)
+
+    try:
         db.execute("""SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES""")
     except:
         print 'Error: Query failed to execute'
@@ -119,158 +126,69 @@ def graph():
         row = db.fetchone()
         total = row
 
-    try:
-        db.execute("""
-        SELECT modif, IFNULL(cntM, 0), IFNULL(volM, 0),
-                IFNULL(cntA, 0), IFNULL(volA, 0),
-                IFNULL(cntC, 0), IFNULL(volC, 0),
-                IFNULL(cntD, 0), IFNULL(volD, 0)
-            FROM(SELECT modif, SUM(c) AS cntM, SUM(v) AS volM FROM (
-                SELECT c, v, CASE
-                    WHEN log_age < ROUND(LOG(10,900),5) THEN '15min'
-                    WHEN log_age < ROUND(LOG(10,3600),5) THEN '1h'
-                    WHEN log_age < ROUND(LOG(10,43200),5) THEN '12h'
-                    WHEN log_age < ROUND(LOG(10,86400),5) THEN '1d'
-                    WHEN log_age < ROUND(LOG(10,604800),5) THEN '1w'
-                    WHEN log_age < ROUND(LOG(10,2592000),5) THEN '1m'
-                    WHEN log_age < ROUND(LOG(10,15552000),5) THEN '6m'
-                    WHEN log_age < ROUND(LOG(10,31104000),5) THEN '1y'
-                    ELSE 'over1y'
-                    END
-                AS modif FROM (
-                    SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-last_mod),5) AS log_age,
-                    COUNT(*) AS c,
-                    IFNULL(SUM(size),0) AS v
-                    FROM ENTRIES GROUP BY log_age)
-                AS ps )
-            AS stats GROUP BY modif ) modif_tb
-            LEFT JOIN
-            (SELECT acs, SUM(c) AS cntA, SUM(v) AS volA FROM (
-                SELECT c, v, CASE
-                    WHEN log_age < ROUND(LOG(10,900),5) THEN '15min'
-                    WHEN log_age < ROUND(LOG(10,3600),5) THEN '1h'
-                    WHEN log_age < ROUND(LOG(10,43200),5) THEN '12h'
-                    WHEN log_age < ROUND(LOG(10,86400),5) THEN '1d'
-                    WHEN log_age < ROUND(LOG(10,604800),5) THEN '1w'
-                    WHEN log_age < ROUND(LOG(10,2592000),5) THEN '1m'
-                    WHEN log_age < ROUND(LOG(10,15552000),5) THEN '6m'
-                    WHEN log_age < ROUND(LOG(10,31104000),5) THEN '1y'
-                    ELSE 'over1y'
-                    END
-                AS acs FROM (
-                    SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-last_access),5) AS log_age,
-                    COUNT(*) AS c,
-                    IFNULL(SUM(size),0) AS v
-                    FROM ENTRIES GROUP BY log_age)
-                AS ps )
-            AS stats GROUP BY acs ) acs_tb ON acs_tb.acs = modif_tb.modif
-            LEFT JOIN
-            (SELECT crt, SUM(c) AS cntC, SUM(v) AS volC FROM (
-                SELECT c, v, CASE
-                    WHEN log_age < ROUND(LOG(10,900),5) THEN '15min'
-                    WHEN log_age < ROUND(LOG(10,3600),5) THEN '1h'
-                    WHEN log_age < ROUND(LOG(10,43200),5) THEN '12h'
-                    WHEN log_age < ROUND(LOG(10,86400),5) THEN '1d'
-                    WHEN log_age < ROUND(LOG(10,604800),5) THEN '1w'
-                    WHEN log_age < ROUND(LOG(10,2592000),5) THEN '1m'
-                    WHEN log_age < ROUND(LOG(10,15552000),5) THEN '6m'
-                    WHEN log_age < ROUND(LOG(10,31104000),5) THEN '1y'
-                    ELSE 'over1y'
-                    END
-                AS crt FROM (
-                    SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-creation_time),5) AS log_age,
-                    COUNT(*) AS c,
-                    IFNULL(SUM(size),0) AS v
-                    FROM ENTRIES GROUP BY log_age)
-                AS ps )
-            AS stats GROUP BY crt ) crt_tb ON crt_tb.crt = modif_tb.modif
-            LEFT JOIN
-            (SELECT chng, SUM(c) AS cntD, SUM(v) AS volD FROM (
-                SELECT c, v, CASE
-                    WHEN log_age < ROUND(LOG(10,900),5) THEN '15min'
-                    WHEN log_age < ROUND(LOG(10,3600),5) THEN '1h'
-                    WHEN log_age < ROUND(LOG(10,43200),5) THEN '12h'
-                    WHEN log_age < ROUND(LOG(10,86400),5) THEN '1d'
-                    WHEN log_age < ROUND(LOG(10,604800),5) THEN '1w'
-                    WHEN log_age < ROUND(LOG(10,2592000),5) THEN '1m'
-                    WHEN log_age < ROUND(LOG(10,15552000),5) THEN '6m'
-                    WHEN log_age < ROUND(LOG(10,31104000),5) THEN '1y'
-                    ELSE 'over1y'
-                    END
-                AS chng FROM (
-                    SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-last_mdchange),5) AS log_age,
-                    COUNT(*) AS c,
-                    IFNULL(SUM(size),0) AS v
-                    FROM ENTRIES GROUP BY log_age)
-                AS ps )
-            AS stats GROUP BY chng ) chngdb_tb ON chngdb_tb.chng = modif_tb.modif
-            ORDER BY CASE modif
-                WHEN '15min' THEN 1
-                WHEN '1h' THEN 2
-                WHEN '12h' THEN 3
-                WHEN '1d' THEN 4
-                WHEN '1w' THEN 5
-                WHEN '1m' THEN 6
-                WHEN '6m' THEN 7
-                WHEN '1y' THEN 8
-                ELSE 9
-            END
-        """)
-    except:
-        print 'Error: Query failed to execute'
-        exit(1)
-    else:
+    prefix = ['modif', 'last_mod', 'acs', 'last_access', 'creat', 'creation_time', 'db', 'last_mdchange']
+    i = 0
+    while (i <= 6):
         try:
-            row = db.fetchone()
-            nextRow = db.fetchone()
-            while (nextRow is not None):
-                message += '%s.modTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[1], begin)
-                message += '%s.modTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[1] / total[0], begin)
-                message += '%s.modTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[2], begin)
-                message += '%s.modTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[2] / total[1], begin)
-
-                message += '%s.acsTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[3], begin)
-                message += '%s.acsTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[3] / total[0], begin)
-                message += '%s.acsTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[4], begin)
-                message += '%s.acsTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[4] / total[1], begin)
-                message += '%s.acsTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[4] / row[3], begin)
-
-                message += '%s.creatTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[5], begin)
-                message += '%s.creatTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[5] / total[0], begin)
-                message += '%s.creatTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[6], begin)
-                message += '%s.creatTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[6] / total[1], begin)
-                message += '%s.creatTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[6] / row[5], begin)
-
-                message += '%s.dbTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[7], begin)
-                message += '%s.dbTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[7] / total[0], begin)
-                message += '%s.dbTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[8], begin)
-                message += '%s.dbTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[8] / total[1], begin)
-
-                row = (nextRow[0], nextRow[1] + row[1], nextRow[2] + row[2], nextRow[3] + row[3], nextRow[4] + row[4], nextRow[5] + row[5], nextRow[6] + row[6], nextRow[7] + row[7], nextRow[8] + row[8])
-                nextRow = db.fetchone()
-
-            message += '%s.modTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[1], begin)
-            message += '%s.modTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[1] / total[0], begin)
-            message += '%s.modTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[2], begin)
-            message += '%s.modTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[2] / total[1], begin)
-
-            message += '%s.acsTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[3], begin)
-            message += '%s.acsTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[3] / total[0], begin)
-            message += '%s.acsTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[4], begin)
-            message += '%s.acsTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[4] / total[1], begin)
-
-            message += '%s.creatTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[5], begin)
-            message += '%s.creatTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[5] / total[0], begin)
-            message += '%s.creatTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[6], begin)
-            message += '%s.creatTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[6] / total[1], begin)
-
-            message += '%s.dbTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, row[0], row[7], begin)
-            message += '%s.dbTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[7] / total[0], begin)
-            message += '%s.dbTempGraph.size.%s %i %s\n' % (PATH_GRAPH, row[0], row[8], begin)
-            message += '%s.dbTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, row[0], row[8] / total[1], begin)
+            db.execute("""
+                SELECT """ + prefix[i] + """, IFNULL(SUM(c), 0) AS cnt, IFNULL(SUM(v), 0) AS vol FROM (
+                    SELECT c, v, CASE
+                        WHEN log_age < ROUND(LOG(10,900),5) THEN '15min'
+                        WHEN log_age < ROUND(LOG(10,3600),5) THEN '1h'
+                        WHEN log_age < ROUND(LOG(10,43200),5) THEN '12h'
+                        WHEN log_age < ROUND(LOG(10,86400),5) THEN '1d'
+                        WHEN log_age < ROUND(LOG(10,604800),5) THEN '1w'
+                        WHEN log_age < ROUND(LOG(10,2592000),5) THEN '1m'
+                        WHEN log_age < ROUND(LOG(10,15552000),5) THEN '6m'
+                        WHEN log_age < ROUND(LOG(10,31104000),5) THEN '1y'
+                        ELSE 'over1y'
+                        END
+                    AS """ + prefix[i] + """ FROM (
+                        SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-""" + prefix[i + 1] + """),5) AS log_age,
+                        COUNT(*) AS c,
+                        IFNULL(SUM(size),0) AS v
+                        FROM ENTRIES GROUP BY log_age)
+                    AS ps )
+                AS stats GROUP BY """ + prefix[i] + """
+                ORDER BY CASE """ + prefix[i] + """
+                    WHEN '15min' THEN 1
+                    WHEN '1h' THEN 2
+                    WHEN '12h' THEN 3
+                    WHEN '1d' THEN 4
+                    WHEN '1w' THEN 5
+                    WHEN '1m' THEN 6
+                    WHEN '6m' THEN 7
+                    WHEN '1y' THEN 8
+                    ELSE 9
+                END""")
         except:
-            print 'Error: Data failed to be processed'
+            print 'Error: Query failed to execute'
             exit(1)
+        else:
+            timespan = ['15min', '1h', '12h', '1d', '1w', '1m', '6m', '1y', 'over1y']
+            j = 0
+            row = [0, 0]
+            nextRow = db.fetchone()
+            while (j < 9):
+
+                if (nextRow is not None and nextRow[0] == timespan[j]):
+                    row = (nextRow[1] + row[0], nextRow[2] + row[1])
+                    nextRow = db.fetchone()
+
+                try:
+                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[0], begin)
+                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[0] / total[0], begin)
+                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1], begin)
+                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / total[1], begin)
+                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / (row[0] if row[0] else 1), begin)
+                except:
+                    print 'Error: Data failed to be processed'
+                    exit(1)
+
+                sock.sendall(message)
+                message = ''
+                j += 1
+        i += 2
 
     try:
         db.execute("""SELECT varname, value FROM VARS WHERE varname LIKE 'ChangelogCount_%'""")
@@ -278,20 +196,14 @@ def graph():
         print 'Error: Query failed to execute'
         exit(1)
     else:
+        message = ''
         row = db.fetchone()
         while (row is not None):
             message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], begin)
             row = db.fetchone()
-
-    try:
-        sock = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
-        sock.connect((CARBON_SERVER, CARBON_PORT))
-    except:
-        print 'Error: Connection to carbon server failed'
-        exit(1)
-
-    try:
         sock.sendall(message)
+
+    try:
         message = '%s.execTime %s %s' % (PATH_GRAPH, time.time() - begin, begin)
         sock.sendall(message)
     except:
