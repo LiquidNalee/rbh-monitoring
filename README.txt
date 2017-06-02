@@ -71,6 +71,9 @@ lfs changelog_register <device>
 # Save the changelog reader id to your robinhood conf.file
 # Make sure to have the '--readlog' option for your daemon
 
+# Set 'last_access_only_atime' in robinhood/src/common/global_config.c 
+# Recommended to differentiate read and write operations using grafana dashboard
+
 IV - First run
 ===============
 
