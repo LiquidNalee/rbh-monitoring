@@ -205,7 +205,11 @@ def graph():
         while (row is not None):
             message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], begin)
             row = db.fetchone()
-        sock.sendall(message)
+        try:
+            sock.sendall(message)
+        except:
+            print 'Error: Discussion with carbon server failed'
+            exit(1)
 
     try:
         sock.close()
