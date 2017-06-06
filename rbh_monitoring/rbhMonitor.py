@@ -123,8 +123,7 @@ def graph():
         print 'Error: Query failed to execute'
         exit(1)
     else:
-        row = db.fetchone()
-        total = row
+        total = db.fetchone()
 
     prefix = ['modif', 'last_mod', 'acs', 'last_access', 'creat', 'creation_time', 'db', 'last_mdchange']
     i = 0
@@ -185,7 +184,12 @@ def graph():
                     print 'Error: Data failed to be processed'
                     exit(1)
 
-                sock.sendall(message)
+                try:
+                    sock.sendall(message)
+                except:
+                    print 'Error: Discussion with carbon server failed'
+                    exit(1)
+
                 message = ''
                 j += 1
         i += 2
@@ -202,13 +206,6 @@ def graph():
             message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], begin)
             row = db.fetchone()
         sock.sendall(message)
-
-    try:
-        message = '%s.execTime %s %s' % (PATH_GRAPH, time.time() - begin, begin)
-        sock.sendall(message)
-    except:
-        print 'Error: Discussion with carbon server failed'
-        exit(1)
 
     try:
         sock.close()
