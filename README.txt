@@ -10,10 +10,10 @@ I - Introduction
 Using the robinhood MySQL database and a carbon server,
 rbh-monitoring provides a graphite with all the data to monitor
 a Lustre filesystem :
-- size and number of inodes created by timestamp
-- size and number of inodes accessed by timestamp
-- size and number of inodes modified by timestamp
-- size and number of inodes modified in the database by timestamp
+- size, average size per file and number of inodes created by timestamp
+- size, average size per file and number of inodes accessed by timestamp
+- size, average size per file and number of inodes modified by timestamp
+- size, average size per file and number of inodes modified in the database by timestamp
 - number of changelogs consumed by the database
 - execution time of the script
 
