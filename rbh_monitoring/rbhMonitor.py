@@ -170,21 +170,22 @@ def graph():
             nextRow = db.fetchone()
             while (j < length):
 
-                if (nextRow is not None and nextRow[0] == timespanTab[j]):
+                if (nextRow is not None and nextRow[0] == timespanTab[j][0]):
                     row = (nextRow[1] + row[0], nextRow[2] + row[1])
                     nextRow = db.fetchone()
 
                 try:
-                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[0], begin)
-                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[0] / total[0], begin)
-                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[1], begin)
-                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[1] / total[1], begin)
-                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[1] / (row[0] if row[0] else 1), begin)
+                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0], begin)
+                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0] / total[0], begin)
+                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1], begin)
+                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / total[1], begin)
+                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), begin)
                 except:
                     print 'Error: Data failed to be processed'
                     exit(1)
 
                 try:
+                    print(message)
                     sock.sendall(message)
                 except:
                     print 'Error: Discussion with carbon server failed'
