@@ -170,7 +170,7 @@ def graph():
             nextRow = db.fetchone()
             while (j < length):
 
-                if (nextRow is not None and nextRow[0] == logAgeTab[j]):
+                if (nextRow is not None and nextRow[0] == timespanTab[j]):
                     row = (nextRow[1] + row[0], nextRow[2] + row[1])
                     nextRow = db.fetchone()
 
