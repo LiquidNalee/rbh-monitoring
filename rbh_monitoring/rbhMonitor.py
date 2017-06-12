@@ -8,6 +8,18 @@ from rbh_monitoring import config
 import MySQLdb
 
 
+def buildQuery(i, logAgeTab, timespanTab):
+
+    query = "SELECT " + logAgeTab[i] + ", IFNULL(SUM(c), 0) AS cnt, IFNULL(SUM(v), 0) AS vol FROM (\nSELECT c, v, CASE"
+    j = 0
+    while (timespanTab[j + 1] is not None):
+        query += "WHEN log_age < ROUND(LOG(10," + timespanTab[j][1] + "),5) THEN '" + timespanTab[j][0] + "'\n"
+    query += "ELSE '" + timespanTab[j][0] + "'\nEND\nAS " + logAgeTab[i] + " FROM (\n"
+    query += "SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-" + logAgeTab[i + 1] + "),5) AS log_age\n"
+    query += "COUNT(*) AS c,\nIFNULL(SUM(size),0) AS v\nFROM ENTRIES GROUP BY log_age)\nAS ps)\n"
+    query += "AS stats GROUP BY " + logAgeTab[i] + "\nORDER BY CASE " + logAgeTab[i] + "\n"
+
+
 def graph():
 
     parser = argparse.ArgumentParser(description='Retrieves data from MySQL database and sends it to graphite server')
@@ -98,6 +110,18 @@ def graph():
             print 'ERROR: missing path to graphite folder from config file !'
             exit(1)
 
+    if config.timespan:
+        timespanTab = config.timespan
+    else:
+        print 'ERROR: Timespan table has been unset in rbh_monitoring/config.py'
+        exit(1)
+
+    if config.prefix:
+        logAgeTab = config.prefix
+    else:
+        print 'ERROR: logAge table has been unset in rbh_monitoring/config.py'
+        exit(1)
+
     begin = time.time()
     total = [0, 0]
     message = ''
@@ -125,61 +149,29 @@ def graph():
     else:
         total = db.fetchone()
 
-    prefix = ['modif', 'last_mod', 'acs', 'last_access', 'creat', 'creation_time', 'db', 'last_mdchange']
     i = 0
     while (i <= 6):
         try:
-            db.execute("""
-                SELECT """ + prefix[i] + """, IFNULL(SUM(c), 0) AS cnt, IFNULL(SUM(v), 0) AS vol FROM (
-                    SELECT c, v, CASE
-                        WHEN log_age < ROUND(LOG(10,900),5) THEN '15min'
-                        WHEN log_age < ROUND(LOG(10,3600),5) THEN '1h'
-                        WHEN log_age < ROUND(LOG(10,43200),5) THEN '12h'
-                        WHEN log_age < ROUND(LOG(10,86400),5) THEN '1d'
-                        WHEN log_age < ROUND(LOG(10,604800),5) THEN '1w'
-                        WHEN log_age < ROUND(LOG(10,2592000),5) THEN '1m'
-                        WHEN log_age < ROUND(LOG(10,15552000),5) THEN '6m'
-                        WHEN log_age < ROUND(LOG(10,31104000),5) THEN '1y'
-                        ELSE 'over1y'
-                        END
-                    AS """ + prefix[i] + """ FROM (
-                        SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-""" + prefix[i + 1] + """),5) AS log_age,
-                        COUNT(*) AS c,
-                        IFNULL(SUM(size),0) AS v
-                        FROM ENTRIES GROUP BY log_age)
-                    AS ps )
-                AS stats GROUP BY """ + prefix[i] + """
-                ORDER BY CASE """ + prefix[i] + """
-                    WHEN '15min' THEN 1
-                    WHEN '1h' THEN 2
-                    WHEN '12h' THEN 3
-                    WHEN '1d' THEN 4
-                    WHEN '1w' THEN 5
-                    WHEN '1m' THEN 6
-                    WHEN '6m' THEN 7
-                    WHEN '1y' THEN 8
-                    ELSE 9
-                END""")
+            db.execute(buildQuery(i, logAgeTab, timespanTab))
         except:
             print 'Error: Query failed to execute'
             exit(1)
         else:
-            timespan = ['15min', '1h', '12h', '1d', '1w', '1m', '6m', '1y', 'over1y']
             j = 0
             row = [0, 0]
             nextRow = db.fetchone()
             while (j < 9):
 
-                if (nextRow is not None and nextRow[0] == timespan[j]):
+                if (nextRow is not None and nextRow[0] == logAgeTab[j]):
                     row = (nextRow[1] + row[0], nextRow[2] + row[1])
                     nextRow = db.fetchone()
 
                 try:
-                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[0], begin)
-                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[0] / total[0], begin)
-                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1], begin)
-                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / total[1], begin)
-                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, prefix[i], timespan[j], row[1] / (row[0] if row[0] else 1), begin)
+                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[0], begin)
+                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[0] / total[0], begin)
+                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[1], begin)
+                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[1] / total[1], begin)
+                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j], row[1] / (row[0] if row[0] else 1), begin)
                 except:
                     print 'Error: Data failed to be processed'
                     exit(1)
