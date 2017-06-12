@@ -8,20 +8,22 @@ from rbh_monitoring import config
 import MySQLdb
 
 
-def buildQuery(i, logAgeTab, timespanTab):
+def buildQuery(i, length, logAgeTab, timespanTab):
 
-    query = "SELECT " + logAgeTab[i] + ", IFNULL(SUM(c), 0) AS cnt, IFNULL(SUM(v), 0) AS vol FROM (\nSELECT c, v, CASE"
+    query = "SELECT %s, IFNULL(SUM(c), 0) AS cnt, IFNULL(SUM(v), 0) AS vol FROM (\nSELECT c, v, CASE\n" % (logAgeTab[i])
     j = 0
-    while (timespanTab[j + 1] is not None):
-        query += "WHEN log_age < ROUND(LOG(10," + timespanTab[j][1] + "),5) THEN '" + timespanTab[j][0] + "'\n"
-    query += "ELSE '" + timespanTab[j][0] + "'\nEND\nAS " + logAgeTab[i] + " FROM (\n"
-    query += "SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-" + logAgeTab[i + 1] + "),5) AS log_age\n"
+    while (j < length - 1):
+        query += "WHEN log_age < ROUND(LOG(10,%s),5) THEN '%s'\n" % (timespanTab[j][1], timespanTab[j][0])
+	j += 1
+    query += "ELSE '%s'\nEND\nAS %s FROM (\n" % (timespanTab[j][0], logAgeTab[i])
+    query += "SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-%s),5) AS log_age,\n" % (logAgeTab[i + 1])
     query += "COUNT(*) AS c,\nIFNULL(SUM(size),0) AS v\nFROM ENTRIES GROUP BY log_age)\nAS ps)\n"
-    query += "AS stats GROUP BY " + logAgeTab[i] + "\nORDER BY CASE " + logAgeTab[i] + "\n"
+    query += "AS stats GROUP BY %s\nORDER BY CASE %s\n" % (logAgeTab[i], logAgeTab[i])
     j = 0
-    while (timespanTab[j + 1] is not None):
-        query += "WHEN '" + timespanTab[j][1] + "' THEN " + (j + 1) + "'\n"
-    query += "ELSE " + (j + 1) + "\nEND"
+    while (j < length - 1):
+        query += "WHEN '%s' THEN %i\n" % (timespanTab[j][0], j + 1)
+	j += 1
+    query += "ELSE %i\nEND" % (j + 1)
     return(query)
 
 
@@ -58,7 +60,7 @@ def graph():
         if config.carbon_server:
             CARBON_SERVER = config.carbon_server
         else:
-            print 'ERROR: missing Carbon server address from config file !'
+            print 'Error: missing Carbon server address from config file !'
             exit(1)
 
     if args.port:
@@ -67,7 +69,7 @@ def graph():
         if config.carbon_port:
             CARBON_PORT = config.carbon_port
         else:
-            print 'ERROR: missing Carbon port from config file !'
+            print 'Error: missing Carbon port from config file !'
             exit(1)
 
     if args.host:
@@ -76,7 +78,7 @@ def graph():
         if config.db_host:
             DB_HOST = config.db_host
         else:
-            print 'ERROR: missing database host name from config file !'
+            print 'Error: missing database host name from config file !'
             exit(1)
 
     if args.user:
@@ -85,7 +87,7 @@ def graph():
         if config.db_user:
             DB_USER = config.db_user
         else:
-            print 'ERROR: missing database user name from config file !'
+            print 'Error: missing database user name from config file !'
             exit(1)
 
     if args.password:
@@ -94,7 +96,7 @@ def graph():
         if config.db_pwd:
             DB_PWD = config.db_pwd
         else:
-            print 'ERROR: missing database password from config file !'
+            print 'Error: missing database password from config file !'
             exit(1)
 
     if args.database:
@@ -103,7 +105,7 @@ def graph():
         if config.db:
             DB = config.db
         else:
-            print 'ERROR: missing database from config file !'
+            print 'Error: missing database from config file !'
             exit(1)
 
     if args.path:
@@ -112,19 +114,19 @@ def graph():
         if config.path_graph:
             PATH_GRAPH = config.path_graph
         else:
-            print 'ERROR: missing path to graphite folder from config file !'
+            print 'Error: missing path to graphite folder from config file !'
             exit(1)
 
-    if config.timespan:
-        timespanTab = config.timespan
+    if config.timespanTab:
+        timespanTab = config.timespanTab
     else:
-        print 'ERROR: Timespan table has been unset in rbh_monitoring/config.py'
+        print 'Error: Timespan table has been unset in rbh_monitoring/config.py !'
         exit(1)
 
-    if config.prefix:
-        logAgeTab = config.prefix
+    if config.logAgeTab:
+        logAgeTab = config.logAgeTab
     else:
-        print 'ERROR: logAge table has been unset in rbh_monitoring/config.py'
+        print 'Error: logAge table has been unset in rbh_monitoring/config.py !'
         exit(1)
 
     begin = time.time()
@@ -134,7 +136,7 @@ def graph():
     try:
         connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
     except:
-        print 'Error: Unable to connect'
+        print 'Error: Connection to MySQL Database failed'
         exit(1)
     else:
         db = connection.cursor()
@@ -148,24 +150,25 @@ def graph():
 
     try:
         db.execute("""SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES""")
-    except:
-        print 'Error: Query failed to execute'
+    except MySQLdb.Error, e:
+        print 'Error: Query failed to execute [Retrieving COUNT(size) and SUM(size)]', e[0], e[1]
         exit(1)
     else:
         total = db.fetchone()
 
     i = 0
+    length = len(timespanTab)
     while (i <= 6):
         try:
-            print(buildQuery(i, logAgeTab, timespanTab))
-        except:
-            print 'Error: Query failed to execute'
+            print(buildQuery(i, length, logAgeTab, timespanTab))
+        except MySQLdb.Error, e:
+            print 'Error: Query failed to execute [BUILDING]', e[0], e[1]
             exit(1)
         else:
             j = 0
             row = [0, 0]
             nextRow = db.fetchone()
-            while (j < 9):
+            while (j < length):
 
                 if (nextRow is not None and nextRow[0] == logAgeTab[j]):
                     row = (nextRow[1] + row[0], nextRow[2] + row[1])
@@ -193,8 +196,8 @@ def graph():
 
     try:
         db.execute("""SELECT varname, value FROM VARS WHERE varname LIKE 'ChangelogCount_%'""")
-    except:
-        print 'Error: Query failed to execute'
+    except MySQLdb.Error, e:
+        print 'Error: Query failed to execute [Retrieving ChangelogCount]', e[0], e[1]
         exit(1)
     else:
         message = ''
