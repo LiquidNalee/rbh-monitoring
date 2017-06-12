@@ -105,3 +105,10 @@ db_user = "robinhood"
 db_pwd = "..."
 db = "robinhood_lustre"
 path_graph = "..."
+
+In 'rbh-monitoring/rbh_monitoring/config.py' :
+- you may change the timespanTab variable as follows
+    => timespanTab = [(timespan_name (ex: '15min'), timespan_in_seconds (ex: 900)), ...]
+timespanTab has to be sorted.
+
+- you may change the logAgeTab variable if the timestamps column ID in ENTRIES were modified in the database
