@@ -10,10 +10,10 @@ I - Introduction
 Using the robinhood MySQL database and a carbon server,
 rbh-monitoring provides a graphite with all the data to monitor
 a Lustre filesystem :
-- size and number of inodes created by timestamp
-- size and number of inodes accessed by timestamp
-- size and number of inodes modified by timestamp
-- size and number of inodes modified in the database by timestamp
+- size, average size per file and number of inodes created by timestamp
+- size, average size per file and number of inodes accessed by timestamp
+- size, average size per file and number of inodes modified by timestamp
+- size, average size per file and number of inodes modified in the database by timestamp
 - number of changelogs consumed by the database
 - execution time of the script
 
@@ -70,6 +70,9 @@ lfs changelog_register <device>
 
 # Save the changelog reader id to your robinhood conf.file
 # Make sure to have the '--readlog' option for your daemon
+
+# Set 'last_access_only_atime' in robinhood/src/common/global_config.c
+# Recommended to differentiate read and write operations using grafana dashboard
 
 IV - First run
 ===============
