@@ -18,6 +18,11 @@ def buildQuery(i, logAgeTab, timespanTab):
     query += "SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-" + logAgeTab[i + 1] + "),5) AS log_age\n"
     query += "COUNT(*) AS c,\nIFNULL(SUM(size),0) AS v\nFROM ENTRIES GROUP BY log_age)\nAS ps)\n"
     query += "AS stats GROUP BY " + logAgeTab[i] + "\nORDER BY CASE " + logAgeTab[i] + "\n"
+    j = 0
+    while (timespanTab[j + 1] is not None):
+        query += "WHEN '" + timespanTab[j][1] + "' THEN " + (j + 1) + "'\n"
+    query += "ELSE " + (j + 1) + "\nEND"
+    return(query)
 
 
 def graph():
@@ -152,7 +157,7 @@ def graph():
     i = 0
     while (i <= 6):
         try:
-            db.execute(buildQuery(i, logAgeTab, timespanTab))
+            print(buildQuery(i, logAgeTab, timespanTab))
         except:
             print 'Error: Query failed to execute'
             exit(1)
