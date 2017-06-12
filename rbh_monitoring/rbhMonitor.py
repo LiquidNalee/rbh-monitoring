@@ -14,7 +14,7 @@ def buildQuery(i, length, logAgeTab, timespanTab):
     j = 0
     while (j < length - 1):
         query += "WHEN log_age < ROUND(LOG(10,%s),5) THEN '%s'\n" % (timespanTab[j][1], timespanTab[j][0])
-	j += 1
+        j += 1
     query += "ELSE '%s'\nEND\nAS %s FROM (\n" % (timespanTab[j][0], logAgeTab[i])
     query += "SELECT ROUND(LOG(10,UNIX_TIMESTAMP(NOW())-%s),5) AS log_age,\n" % (logAgeTab[i + 1])
     query += "COUNT(*) AS c,\nIFNULL(SUM(size),0) AS v\nFROM ENTRIES GROUP BY log_age)\nAS ps)\n"
@@ -22,7 +22,7 @@ def buildQuery(i, length, logAgeTab, timespanTab):
     j = 0
     while (j < length - 1):
         query += "WHEN '%s' THEN %i\n" % (timespanTab[j][0], j + 1)
-	j += 1
+        j += 1
     query += "ELSE %i\nEND" % (j + 1)
     return(query)
 
@@ -160,7 +160,7 @@ def graph():
     length = len(timespanTab)
     while (i <= 6):
         try:
-            print(buildQuery(i, length, logAgeTab, timespanTab))
+            db.execute(buildQuery(i, length, logAgeTab, timespanTab))
         except MySQLdb.Error, e:
             print 'Error: Query failed to execute [BUILDING]', e[0], e[1]
             exit(1)
