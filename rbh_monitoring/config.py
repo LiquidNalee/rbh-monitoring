@@ -41,4 +41,4 @@ except:
     path_graph = ''
 
 logAgeTab = ['modif', 'last_mod', 'acs', 'last_access', 'creat', 'creation_time', 'db', 'last_mdchange']
-timespanTab = [('15min', 900), ('1h', 3600), ('12h', 43200), ('1d', 86400), ('1w', 604800), ('1m', 2592000), ('6m', 15552000), ('1y', 31104000)]
+timespanTab = [('15min', 900), ('1h', 3600), ('12h', 43200), ('1d', 86400), ('1w', 604800), ('1m', 2592000), ('6m', 15552000), ('1y', 31104000), ('over1y', 0)]
