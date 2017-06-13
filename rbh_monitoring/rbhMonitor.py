@@ -185,7 +185,6 @@ def graph():
                     exit(1)
 
                 try:
-                    print(message)
                     sock.sendall(message)
                 except:
                     print 'Error: Discussion with carbon server failed'
