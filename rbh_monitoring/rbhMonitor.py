@@ -166,7 +166,11 @@ def graph():
     try:
         connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
         if args.verbose:
-            print 'Connecting to %s as %s@%s (USING PASSWORD: %s)' % (DB, DB_USER, DB_HOST, DB_PWD if 'YES' else 'NO')
+            print 'Connecting to %s as %s@%s' % (DB, DB_USER, DB_HOST)
+            if DB_PWD:
+                print '(using password:YES)'
+            else:
+                print '(using password:NO)'
     except MySQLdb.error, e:
         print 'Error: Connection to MySQL Database failed', e[0], e[1]
         exit(1)
@@ -194,10 +198,10 @@ def graph():
 
     i = 0
     length = len(timespanTab)
-    while (i <= len(logAgeTab)):
+    while (i < len(logAgeTab)):
         try:
             query = buildQuery(i, length, logAgeTab, timespanTab)
-            db.execue(query)
+            db.execute(query)
             if args.verbose:
                 print 'execute => %s' % query
         except MySQLdb.Error, e:
@@ -209,7 +213,7 @@ def graph():
             nextRow = db.fetchone()
 
             if args.verbose:
-                print '\n=================================='
+                print '=================================='
 
             while (j < length):
 
@@ -225,7 +229,7 @@ def graph():
                     message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), begin)
 
                     if args.verbose:
-                        print '\n%s' % message
+                        print '%s' % message
                 except:
                     print 'Error: Message failed to be built from row = %' % row
                     exit(1)
@@ -239,7 +243,7 @@ def graph():
                 message = ''
                 j += 1
         if args.verbose:
-            print '\n=================================='
+            print '=================================='
         i += 2
 
     try:
