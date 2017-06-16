@@ -21,9 +21,9 @@ def buildQuery(i, length, logAgeTab, timespanTab):
     query += "AS stats GROUP BY %s\nORDER BY CASE %s\n" % (logAgeTab[i], logAgeTab[i])
     j = 0
     while (j < length - 1):
-        query += "WHEN '%s' THEN %i\n" % (timespanTab[j][0], j + 1)
+        query += "WHEN '%s' THEN %s\n" % (timespanTab[j][0], j + 1)
         j += 1
-    query += "ELSE %i\nEND" % (j + 1)
+    query += "ELSE %s\nEND" % (j + 1)
     return(query)
 
 
@@ -51,6 +51,9 @@ def graph():
     parser.add_argument(
         '-p', '--path', required=False, action='store', help='Path to data in Graphite'
     )
+    parser.add_argument(
+        '--verbose', required=False, action='store_true', help='Output steps to stdout'
+    )
 
     args = parser.parse_args()
 
@@ -63,6 +66,9 @@ def graph():
             print 'Error: missing Carbon server address from config file !'
             exit(1)
 
+    if args.verbose:
+        print 'CARBON_SERVER: %s' % CARBON_SERVER
+
     if args.port:
         CARBON_PORT = args.port
     else:
@@ -71,6 +77,9 @@ def graph():
         else:
             print 'Error: missing Carbon port from config file !'
             exit(1)
+
+    if args.verbose:
+        print 'CARBON_PORT: %s' % CARBON_PORT
 
     if args.host:
         DB_HOST = args.host
@@ -81,6 +90,9 @@ def graph():
             print 'Error: missing database host name from config file !'
             exit(1)
 
+    if args.verbose:
+        print 'DB_HOST: %s' % DB_HOST
+
     if args.user:
         DB_USER = args.user
     else:
@@ -89,6 +101,9 @@ def graph():
         else:
             print 'Error: missing database user name from config file !'
             exit(1)
+
+    if args.verbose:
+        print 'DB_USER: %s' % DB_USER
 
     if args.password:
         DB_PWD = args.password
@@ -108,6 +123,9 @@ def graph():
             print 'Error: missing database from config file !'
             exit(1)
 
+    if args.verbose:
+        print 'DATABASE: %s' % DB
+
     if args.path:
         PATH_GRAPH = args.path
     else:
@@ -117,11 +135,17 @@ def graph():
             print 'Error: missing path to graphite folder from config file !'
             exit(1)
 
+    if args.verbose:
+        print 'PATH_GRAPH: %s' % PATH_GRAPH
+
     if config.timespanTab:
         timespanTab = config.timespanTab
     else:
         print 'Error: Timespan table has been unset in rbh_monitoring/config.py !'
         exit(1)
+
+    if args.verbose:
+        print 'Selected timespans: ', timespanTab
 
     if config.logAgeTab:
         logAgeTab = config.logAgeTab
@@ -129,14 +153,22 @@ def graph():
         print 'Error: logAge table has been unset in rbh_monitoring/config.py !'
         exit(1)
 
+    if args.verbose:
+        print 'Selected timestamps: ', logAgeTab
+
     begin = time.time()
     total = [0, 0]
     message = ''
 
+    if args.verbose:
+        print '\nStart time: %s' % begin
+
     try:
         connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
-    except:
-        print 'Error: Connection to MySQL Database failed'
+        if args.verbose:
+            print 'Connecting to %s as %s@%s (USING PASSWORD: %s)' % (DB, DB_USER, DB_HOST, DB_PWD if 'YES' else 'NO')
+    except MySQLdb.error, e:
+        print 'Error: Connection to MySQL Database failed', e[0], e[1]
         exit(1)
     else:
         db = connection.cursor()
@@ -144,12 +176,16 @@ def graph():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((CARBON_SERVER, CARBON_PORT))
-    except:
-        print 'Error: Connection to carbon server failed'
+        if args.verbose:
+            print 'Connecting to %s using port(%s) [TCP]' % (CARBON_SERVER, CARBON_PORT)
+    except socket.error, exc:
+        print 'Error: Connection to carbon server failed', exc
         exit(1)
 
     try:
         db.execute("""SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES""")
+        if args.verbose:
+            print '\nexecute => SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES'
     except MySQLdb.Error, e:
         print 'Error: Query failed to execute [Retrieving COUNT(size) and SUM(size)]', e[0], e[1]
         exit(1)
@@ -158,16 +194,23 @@ def graph():
 
     i = 0
     length = len(timespanTab)
-    while (i <= 6):
+    while (i <= len(logAgeTab)):
         try:
-            db.execute(buildQuery(i, length, logAgeTab, timespanTab))
+            query = buildQuery(i, length, logAgeTab, timespanTab)
+            db.execue(query)
+            if args.verbose:
+                print 'execute => %s' % query
         except MySQLdb.Error, e:
-            print 'Error: Query failed to execute [BUILDING]', e[0], e[1]
+            print 'Error: Query failed to execute [BUILDING table]', e[0], e[1]
             exit(1)
         else:
             j = 0
             row = [0, 0]
             nextRow = db.fetchone()
+
+            if args.verbose:
+                print '\n=================================='
+
             while (j < length):
 
                 if (nextRow is not None and nextRow[0] == timespanTab[j][0]):
@@ -180,22 +223,29 @@ def graph():
                     message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1], begin)
                     message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / total[1], begin)
                     message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), begin)
+
+                    if args.verbose:
+                        print '\n%s' % message
                 except:
-                    print 'Error: Data failed to be processed'
+                    print 'Error: Message failed to be built from row = %' % row
                     exit(1)
 
                 try:
                     sock.sendall(message)
                 except:
-                    print 'Error: Discussion with carbon server failed'
+                    print '\nError: Discussion with carbon server failed'
                     exit(1)
 
                 message = ''
                 j += 1
+        if args.verbose:
+            print '\n=================================='
         i += 2
 
     try:
         db.execute("""SELECT varname, value FROM VARS WHERE varname LIKE 'ChangelogCount_%'""")
+        if args.verbose:
+            print 'execute => SELECT varname, value FROM VARS WHERE varname LIKE \'ChangelogCount_%\''
     except MySQLdb.Error, e:
         print 'Error: Query failed to execute [Retrieving ChangelogCount]', e[0], e[1]
         exit(1)
@@ -207,6 +257,8 @@ def graph():
             row = db.fetchone()
         try:
             sock.sendall(message)
+            if args.verbose:
+                print '\n%s' % message
         except:
             print 'Error: Discussion with carbon server failed'
             exit(1)
@@ -214,6 +266,8 @@ def graph():
     try:
         sock.close()
         db.close()
+        if args.verbose:
+            print 'Closing connection to Carbon server / MySQL database'
     except:
         print 'Error: Connection to database/carbon server failed to close'
         exit(1)
