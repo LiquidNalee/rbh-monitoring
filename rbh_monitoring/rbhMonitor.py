@@ -156,12 +156,12 @@ def graph():
     if args.verbose:
         print 'Selected timestamps: ', logAgeTab
 
-    begin = time.time()
+    timestamp = time.time()
     total = [0, 0]
     message = ''
 
     if args.verbose:
-        print '\nStart time: %s' % begin
+        print '\nStart time: %s' % timestamp
 
     try:
         connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
@@ -222,11 +222,11 @@ def graph():
                     nextRow = db.fetchone()
 
                 try:
-                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0], begin)
-                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0] / total[0], begin)
-                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1], begin)
-                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / total[1], begin)
-                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), begin)
+                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0], timestamp)
+                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0] / total[0], timestamp)
+                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1], timestamp)
+                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / total[1], timestamp)
+                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), timestamp)
 
                     if args.verbose:
                         print '%s' % message
@@ -257,7 +257,7 @@ def graph():
         message = ''
         row = db.fetchone()
         while (row is not None):
-            message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], begin)
+            message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], timestamp)
             row = db.fetchone()
         try:
             sock.sendall(message)
