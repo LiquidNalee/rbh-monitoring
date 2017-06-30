@@ -45,7 +45,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "refresh": "1m",
+  "refresh": false,
   "rows": [
     {
       "collapse": false,
@@ -1098,7 +1098,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -1147,6 +1147,141 @@
           "timeFrom": null,
           "timeShift": null,
           "title": "TemperatureGraph-Access (avgFileSize)",
+          "tooltip": {
+            "shared": true,
+            "sort": 0,
+            "value_type": "individual"
+          },
+          "transparent": true,
+          "type": "graph",
+          "xaxis": {
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "decbytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            }
+          ]
+        },
+        {
+          "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1d": "#7EB26D",
+            "1h": "#EF843C",
+            "1w": "#6ED0E0",
+            "6 month": "#705DA0",
+            "< 12h": "#EAB839",
+            "< 15min": "#BF1B00",
+            "< 1d": "#7EB26D",
+            "< 1h": "#EF843C",
+            "< 1m": "#1F78C1",
+            "< 1y": "#584477",
+            "< 6m": "#0A50A1",
+            "< 7d": "#6ED0E0",
+            "over 1y": "#6D1F62",
+            "sboucen.acsTempGraph.size.12h": "#EAB839",
+            "sboucen.acsTempGraph.size.15min": "#BF1B00",
+            "sboucen.acsTempGraph.size.1d": "#7EB26D",
+            "sboucen.acsTempGraph.size.1h": "#EF843C",
+            "sboucen.acsTempGraph.size.1m": "#1F78C1",
+            "sboucen.acsTempGraph.size.1w": "#6ED0E0"
+          },
+          "bars": false,
+          "datasource": "${DS_RBHMETRIC}",
+          "description": "Represents the average size of files modified in a given timespan",
+          "fill": 0,
+          "height": "400",
+          "id": 13,
+          "legend": {
+            "alignAsTable": true,
+            "avg": true,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null as zero",
+          "percentage": false,
+          "pointradius": 2,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "span": 4,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "refId": "G",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "textEditor": false
+            },
+            {
+              "refId": "H",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1y, '< 1y')",
+              "textEditor": false
+            },
+            {
+              "refId": "I",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.6m, '< 6m')",
+              "textEditor": false
+            },
+            {
+              "refId": "F",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1m, '< 1m')",
+              "textEditor": false
+            },
+            {
+              "refId": "E",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1w, '< 7d')"
+            },
+            {
+              "refId": "D",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1d, '< 1d')"
+            },
+            {
+              "refId": "C",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.12h, '< 12h')"
+            },
+            {
+              "refId": "B",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1h, '< 1h')"
+            },
+            {
+              "refId": "A",
+              "target": "alias($prefix.modifTempGraph.sizeFileAvg.15min, '< 15min')"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "TemperatureGraph-Modif (avgFileSize)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1244,7 +1379,7 @@
           "points": false,
           "renderer": "flot",
           "seriesOverrides": [],
-          "span": 6,
+          "span": 4,
           "stack": false,
           "steppedLine": false,
           "targets": [
@@ -1387,8 +1522,8 @@
     ]
   },
   "time": {
-    "from": "now-1h",
-    "to": "now"
+    "from": "2017-06-06T13:20:16.261Z",
+    "to": "2017-06-06T14:52:27.000Z"
   },
   "timepicker": {
     "refresh_intervals": [
@@ -1417,5 +1552,5 @@
   },
   "timezone": "browser",
   "title": "rbhMonitoring",
-  "version": 4
+  "version": 2
 }
