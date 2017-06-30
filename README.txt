@@ -3,6 +3,7 @@ II  - Compiling
 III - Robinhood setup
 IV  - First run
 V   - Configuration file
+VI  - Graphite Tree description
 
 I - Introduction
 ================
@@ -112,3 +113,53 @@ In 'rbh-monitoring/rbh_monitoring/config.py' :
 timespanTab has to be sorted.
 
 - you may change the logAgeTab variable if the timestamps column ID in ENTRIES were modified in the database
+
+VI - Graphite Tree description
+=================================
+
+Default result for rbh-monitoring :
+(all TempGraph folders contain the same tree)
+
+-PATH_GRAPH/                            (Tree's prefix. from arguments/config)
+    -acsTempGraph/                      (Entries grouped by last_access_time)
+        -cnt/                           (Number of inodes last accessed within a timespan. ex: within 15 min, within 7 days)
+            -12h
+            -15min
+            -1d
+            -1h
+            -1m
+            -1w
+            -1y
+            -6m
+            -over1y
+        -cntAvg/                        (Percentage of inodes last accessed within a timespan proportional to FS' total)
+        -size/                          (Total volume last accessed within a timespan)
+        -sizeAvg/                       (Percentage of total volume last accessed within a timespan proportional to FS' total)
+        -sizeFileAvg/                   (Average volume of files last accessed within a timespan)
+        
+    -chnglogActivity/                   (Changelog event counters)
+        -ChangelogCount_ATIME           (Access time update)
+        -ChangelogCount_CLOSE           (Closing file)
+        -ChangelogCount_CREAT           (Creating file)
+        -ChangelogCount_CTIME           (Creation time update)
+        -ChangelogCount_HLINK           (Hard link creation)
+        -ChangelogCount_HSM             ()
+        -ChangelogCount_LYOUT           ()
+        -ChangelogCount_MARK            ()
+        -ChangelogCount_MIGRT           (Lustre OSS migration operation)
+        -ChangelogCount_MKDIR           (Directory creation)
+        -ChangelogCount_MKNOD           (Node creation)
+        -ChangelogCount_MTIME           (Modification time update)
+        -ChangelogCount_OPEN            ()
+        -ChangelogCount_RENME           (Renaming operation)
+        -ChangelogCount_RMDIR           (Directory deletion)
+        -ChangelogCount_RNMTO           ()
+        -ChangelogCount_SATTR           (Set attribute operation)
+        -ChangelogCount_SLINK           ()
+        -ChangelogCount_TRUNC           (Truncate operation)
+        -ChangelogCount_UNLNK           (File deletion)
+        -ChangelogCount_XATTR           (Set extended attribute operation)
+        
+    -creatTempGraph/                    (Entries grouped by creation time)
+    -dbTempGraph/                       (Entries grouped by database change time)
+    -modifTempGraph/                    (Entries grouped by modification time)
