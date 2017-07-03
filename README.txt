@@ -92,7 +92,7 @@ Data with the appropriate timestamp will be sent to the chosen carbon server
 or an error will be issued.
 
 In order to have a continuous flow of data, add this line to your crontab :
-* * * * * /bin/bash -l -c "~/.local/bin/rbh-monitoring &>> /path/to/log/file 2>&1"
+* * * * * /bin/bash -l -c "/path/to/rbh-monitoring &>> /path/to/log/file 2>&1"
 
 V - Configuration file
 ======================
@@ -113,6 +113,8 @@ In 'rbh-monitoring/rbh_monitoring/config.py' :
 timespanTab has to be sorted.
 
 - you may change the logAgeTab variable if the timestamps column ID in ENTRIES were modified in the database
+    (default : id, uid, gid, size, blocks, creation_time, last_access, last_mod, last_mdchange,
+               type, mode, nlink, md_update, invalid, fileclass, class_update)
 
 VI - Graphite Tree description
 =================================
@@ -120,18 +122,19 @@ VI - Graphite Tree description
 Default result for rbh-monitoring :
 (all TempGraph folders contain the same tree)
 
--PATH_GRAPH/                        (Tree's prefix. from arguments/config)
+-PATH_GRAPH/                        (Tree's root directory named <prefix> from arguments/config)
     -acsTempGraph/                  (Entries grouped by last_access_time)
-        -cnt/                       (Number of inodes last accessed within a timespan. ex: within 15 min, within 7 days)
-            -12h
-            -15min
-            -1d
-            -1h
-            -1m
-            -1w
-            -1y
-            -6m
-            -over1y
+        -cnt/                       (Number of inodes last accessed within a timespan)
+            -12h                    (timespan = < 12 hours)
+            -15min                  (timespan = < 15 minutes)
+            -1d                     (timespan = < 1 day)
+            -1h                     (timespan = < 1 hour)
+            -1m                     (timespan = < 1 month)
+            -1w                     (timespan = < 1 week)
+            -1y                     (timespan = < 1 year)
+            -6m                     (timespan = < 6 month)
+            -over1y                 (timespan = > 1 year)
+            
         -cntAvg/                    (Percentage of inodes last accessed within a timespan proportional to FS' total)
         -size/                      (Total volume last accessed within a timespan)
         -sizeAvg/                   (Percentage of total volume last accessed within a timespan proportional to FS' total)
@@ -139,27 +142,27 @@ Default result for rbh-monitoring :
         
     -chnglogActivity/               (Changelog event counters)
         -ChangelogCount_ATIME       (Access time update)
-        -ChangelogCount_CLOSE       (Closing file)
-        -ChangelogCount_CREAT       (Creating file)
+        -ChangelogCount_CLOSE       (Close file descriptor)
+        -ChangelogCount_CREAT       (Regular file creation)
         -ChangelogCount_CTIME       (Creation time update)
         -ChangelogCount_HLINK       (Hard link creation)
         -ChangelogCount_HSM         ()
-        -ChangelogCount_LYOUT       ()
-        -ChangelogCount_MARK        ()
-        -ChangelogCount_MIGRT       (Lustre OSS migration operation)
+        -ChangelogCount_LYOUT       (Layout operation)
+        -ChangelogCount_MARK        (Internal recordkeeping)
+        -ChangelogCount_MIGRT       (File/directory migration)
         -ChangelogCount_MKDIR       (Directory creation)
-        -ChangelogCount_MKNOD       (Node creation)
+        -ChangelogCount_MKNOD       (Other file creation)
         -ChangelogCount_MTIME       (Modification time update)
-        -ChangelogCount_OPEN        ()
-        -ChangelogCount_RENME       (Renaming operation)
+        -ChangelogCount_OPEN        (Open file descriptor)
+        -ChangelogCount_RENME       (Rename from)
         -ChangelogCount_RMDIR       (Directory deletion)
-        -ChangelogCount_RNMTO       ()
-        -ChangelogCount_SATTR       (Set attribute operation)
-        -ChangelogCount_SLINK       ()
-        -ChangelogCount_TRUNC       (Truncate operation)
-        -ChangelogCount_UNLNK       (File deletion)
-        -ChangelogCount_XATTR       (Set extended attribute operation)
+        -ChangelogCount_RNMTO       (Rename to)
+        -ChangelogCount_SATTR       (Set attribute)
+        -ChangelogCount_SLINK       (Soft link creation)
+        -ChangelogCount_TRUNC       (Truncate)
+        -ChangelogCount_UNLNK       (Regular file removal)
+        -ChangelogCount_XATTR       (Set extended attribute)
         
     -creatTempGraph/                (Entries grouped by creation time)
-    -dbTempGraph/                   (Entries grouped by database change time)
+    -dbTempGraph/                   (Entries grouped by database update time)
     -modifTempGraph/                (Entries grouped by modification time)
