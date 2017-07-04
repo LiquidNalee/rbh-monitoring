@@ -16,7 +16,6 @@ a Lustre filesystem :
 - size, average size per file and number of inodes modified by timestamp
 - size, average size per file and number of inodes modified in the database by timestamp
 - number of changelogs consumed by the database
-- execution time of the script
 
 The command 'rbh-monitoring' is to be scheduled in a crontab to run
 periodically.
@@ -110,7 +109,7 @@ path_graph = "..."
 In 'rbh-monitoring/rbh_monitoring/config.py' :
 - you may change the timespanTab variable as follows
     => timespanTab = [(timespan_name (ex: '15min'), timespan_in_seconds (ex: 900)), ...]
-timespanTab has to be sorted.
+    (timespanTab has to be sorted)
 
 - you may change the logAgeTab variable if the timestamps column ID in ENTRIES were modified in the database
     (default : id, uid, gid, size, blocks, creation_time, last_access, last_mod, last_mdchange,
