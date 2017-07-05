@@ -1,0 +1,3 @@
+[console_scripts]
+rbh-monitoring = rbh_monitoring.rbhMonitor:graph
+
