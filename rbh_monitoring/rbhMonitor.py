@@ -223,9 +223,9 @@ def graph():
 
                 try:
                     message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0], timestamp)
-                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0] / total[0], timestamp)
+                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0] / (total[0] if total[0] else 1), timestamp)
                     message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1], timestamp)
-                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / total[1], timestamp)
+                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (total[1] if total[1] else 1), timestamp)
                     message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), timestamp)
 
                     if args.verbose:
