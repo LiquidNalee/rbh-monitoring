@@ -159,6 +159,12 @@ def graph():
     if args.verbose:
         print 'Selected timestamps: ', logAgeTab
 
+    if args.dry_run:
+        dry_run = args.dry_run
+        print '[DRY RUN]'
+    else:
+        dry_run = False
+
     timestamp = time.time()
     total = [0, 0]
     message = ''
@@ -167,11 +173,7 @@ def graph():
 
     try:
         connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
-        print 'Connecting to %s as %s@%s' % (DB, DB_USER, DB_HOST)
-        if DB_PWD:
-            print '(using password:YES)'
-        else:
-            print '(using password:NO)'
+        print 'Connecting to %s as %s on %s (using password:%s)' % (DB, DB_USER, DB_HOST, ('YES' if DB_PWD else 'NO'))
     except MySQLdb.error, e:
         print 'Error: Connection to MySQL Database failed', e[0], e[1]
         exit(1)
@@ -235,7 +237,8 @@ def graph():
                     exit(1)
 
                 try:
-                    sock.sendall(message)
+                    if not dry_run:
+                        sock.sendall(message)
                 except:
                     print '\nError: Discussion with carbon server failed'
                     exit(1)
@@ -260,7 +263,8 @@ def graph():
             message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], timestamp)
             row = db.fetchone()
         try:
-            sock.sendall(message)
+            if not dry_run:
+                sock.sendall(message)
             if args.verbose:
                 print '\n%s' % message
         except:
@@ -271,6 +275,7 @@ def graph():
         sock.close()
         db.close()
         print 'Closing connection to Carbon server / MySQL database'
+        print 'Execution time (in sec): %s' % (time.time() - timestamp)
     except:
         print 'Error: Connection to database/carbon server failed to close'
         exit(1)
