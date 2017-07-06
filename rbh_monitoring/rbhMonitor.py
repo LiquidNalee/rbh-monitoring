@@ -54,6 +54,9 @@ def graph():
     parser.add_argument(
         '--verbose', required=False, action='store_true', help='Output steps to stdout'
     )
+    parser.add_argument(
+        '--dry-run', required=False, action='store_true', help='Output steps to stdout without pushing metrics'
+    )
 
     args = parser.parse_args()
 
@@ -160,17 +163,15 @@ def graph():
     total = [0, 0]
     message = ''
 
-    if args.verbose:
-        print '\nStart time: %s' % timestamp
+    print '\nStart time: %s' % timestamp
 
     try:
         connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
-        if args.verbose:
-            print 'Connecting to %s as %s@%s' % (DB, DB_USER, DB_HOST)
-            if DB_PWD:
-                print '(using password:YES)'
-            else:
-                print '(using password:NO)'
+        print 'Connecting to %s as %s@%s' % (DB, DB_USER, DB_HOST)
+        if DB_PWD:
+            print '(using password:YES)'
+        else:
+            print '(using password:NO)'
     except MySQLdb.error, e:
         print 'Error: Connection to MySQL Database failed', e[0], e[1]
         exit(1)
@@ -180,8 +181,7 @@ def graph():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((CARBON_SERVER, CARBON_PORT))
-        if args.verbose:
-            print 'Connecting to %s using port(%s) [TCP]' % (CARBON_SERVER, CARBON_PORT)
+        print 'Connecting to %s using port(%s) [TCP]' % (CARBON_SERVER, CARBON_PORT)
     except socket.error, exc:
         print 'Error: Connection to carbon server failed', exc
         exit(1)
@@ -270,8 +270,7 @@ def graph():
     try:
         sock.close()
         db.close()
-        if args.verbose:
-            print 'Closing connection to Carbon server / MySQL database'
+        print 'Closing connection to Carbon server / MySQL database'
     except:
         print 'Error: Connection to database/carbon server failed to close'
         exit(1)
