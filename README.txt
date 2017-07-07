@@ -71,7 +71,7 @@ lfs changelog_register <device>
 # Save the changelog reader id to your robinhood conf.file
 # Make sure to have the '--readlog' option for your daemon
 
-# Set 'last_access_only_atime' in robinhood/src/common/global_config.c 
+# Set 'last_access_only_atime' to True in robinhood/src/common/global_config.c 
 # Recommended to differentiate read and write operations using grafana dashboard
 
 IV - First run
@@ -96,6 +96,7 @@ In order to have a continuous flow of data, add this line to your crontab :
 V - Configuration file
 ======================
 
+(Can be changed on the fly)
 template for '~/.rbh-monitoring.ini' :
 [rbh-monitoring_api]
 carbon_server = "..."
@@ -106,6 +107,7 @@ db_pwd = "..."
 db = "robinhood_lustre"
 path_graph = "..."
 
+(Will require the tar to be rebuilt)
 In 'rbh-monitoring/rbh_monitoring/config.py' :
 - you may change the timespanTab variable as follows
     => timespanTab = [(timespan_name (ex: '15min'), timespan_in_seconds (ex: 900)), ...]
