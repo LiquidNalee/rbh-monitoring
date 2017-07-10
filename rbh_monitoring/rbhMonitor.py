@@ -141,15 +141,6 @@ def graph():
     if args.verbose:
         print 'PATH_GRAPH: %s' % PATH_GRAPH
 
-    if config.timespanTab:
-        timespanTab = config.timespanTab
-    else:
-        print 'Error: Timespan table has been unset in rbh_monitoring/config.py !'
-        exit(1)
-
-    if args.verbose:
-        print 'Selected timespans: ', timespanTab
-
     if args.dry_run:
         dry_run = args.dry_run
         print '[DRY RUN]'
