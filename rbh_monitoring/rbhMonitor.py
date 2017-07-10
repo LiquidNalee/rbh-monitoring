@@ -150,15 +150,6 @@ def graph():
     if args.verbose:
         print 'Selected timespans: ', timespanTab
 
-    if config.logAgeTab:
-        logAgeTab = config.logAgeTab
-    else:
-        print 'Error: logAge table has been unset in rbh_monitoring/config.py !'
-        exit(1)
-
-    if args.verbose:
-        print 'Selected timestamps: ', logAgeTab
-
     if args.dry_run:
         dry_run = args.dry_run
         print '[DRY RUN]'
@@ -166,6 +157,8 @@ def graph():
         dry_run = False
 
     timestamp = time.time()
+    logAgeTab = ['modif', 'last_mod', 'acs', 'last_access', 'creat', 'creation_time', 'db', 'last_mdchange']
+    timespanTab = [('15min', 900), ('1h', 3600), ('12h', 43200), ('1d', 86400), ('1w', 604800), ('1m', 2592000), ('6m', 15552000), ('1y', 31104000), ('over1y', 0)]
     total = [0, 0]
     message = ''
 
