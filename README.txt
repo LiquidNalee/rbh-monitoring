@@ -175,23 +175,26 @@ VII - Grafana dashboard explanation
 'rbh-monitoring.json' is a Grafana dashboard template (see https://grafana.com/dashboards/2276) that relies on a Graphite
 server that was filled using rbh-monitoring.
 
-Row 1 => Panel 1 : Represents the average size of files modified within given timespans. Obtained by dividing the
-                   total volume modified within a timespan by the total inode count modified within that timespan.
+Row 1 => Panel 1 : Represents the average size of files modified within given timespans.
+                   Obtained by dividing the total volume modified within a timespan by the
+                   total inode count modified within that timespan.
                    "Over 1y" would represent the average size of all the files modified in the filesystem.
-                   An 'avg' table is shown on the right of that panel which represents the average size of files modified
-                   in the selected grafana timespan.
+                   An 'avg' table is shown on the right of that panel which represents
+                   the average size of files modified in the selected grafana timespan.
                    
-      => Panel 2 : Represents the average size of files created within given timespans. Obtained by dividing the
-                   total volume created within a timespan by the total inode count created within that timespan.
+      => Panel 2 : Represents the average size of files created within given timespans.
+                   Obtained by dividing the total volume created within a timespan by the
+                   total inode count created within that timespan.
                    "Over 1y" would represent the average size of all the files created in the filesystem.
-                   An 'avg' table is shown on the right of that panel which represents the average size of files created
-                   in the selected grafana timespan.
+                   An 'avg' table is shown on the right of that panel which represents
+                   the average size of files created in the selected grafana timespan.
                    
-      => Panel 3 : Represents the average size of files accessed within given timespans. Obtained by dividing a timespan's
-                   total volume accessed by the timespan's total inode count accessed.
+      => Panel 3 : Represents the average size of files accessed within given timespans.
+                   Obtained by dividing a timespan's total volume accessed by the
+                   total inode count accessed accessed within that timepsan.
                    "Over 1y" would represent the average size of all the files accessed in the filesystem.
-                   An 'avg' table is shown on the right of that panel which represents the average size of files accessed
-                   in the selected grafana timespan.
+                   An 'avg' table is shown on the right of that panel which represents
+                   the average size of files accessed in the selected grafana timespan.
 
 Row 2 => Panel 1 : Represents the accessed (positive y) and modified (negative y) inode count within given timespans.
                    This graph only covers the activity within a week (unlike the temperature graph in row3-Panel1) for
@@ -209,9 +212,9 @@ Row 3 => Panel 1 : Represents the accessed (positive y) and modified (negative y
       => Panel 1 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
                    Obtained by stacking a timespan's total volume accessed and modified on separate y-axis.
                    
-Row 4 => Panel 1 : Represents the derivated changelog events counter value consumed by Robinhood. Obtained by derivating the
-                   queried ChangelogCount values in robinhood's db from table VARS (Change the filter settings to select event              
-                   types).
-                   The data is updated every 15 minutes. One point represents the number of selected events occuring in
-                   the last 15 minutes.
+Row 4 => Panel 1 : Represents the derivated changelog events counter value consumed by Robinhood.
+                   Obtained by derivating the queried ChangelogCount values in robinhood's db from table VARS.
+                   (Change the filter settings to select event types)
+                   The data is updated every 15 minutes. One point represents the number of selected
+                   events occuring in the last 15 minutes.
                    The events meaning is explained in section (VI).
