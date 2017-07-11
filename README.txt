@@ -198,7 +198,7 @@ Row 2 => Panel 1 : Represents the accessed (positive y) and modified (negative y
                    visibility purpose.
                    Obtained by stacking a timespan's total inode count accessed and modified on separate y-axis.
                    
-         Panel 1 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
+      => Panel 1 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
                    This graph only covers the activity within a week (unlike the temperature graph in row3-Panel2) for
                    visibility purpose.
                    Obtained by stacking a timespan's total volume accessed and modified on separate y-axis.
@@ -206,7 +206,7 @@ Row 2 => Panel 1 : Represents the accessed (positive y) and modified (negative y
 Row 3 => Panel 1 : Represents the accessed (positive y) and modified (negative y) inode count within given timespans.
                    Obtained by stacking a timespan's total inode count accessed and modified on separate y-axis.
                    
-         Panel 1 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
+      => Panel 1 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
                    Obtained by stacking a timespan's total volume accessed and modified on separate y-axis.
                    
 Row 4 => Panel 1 : Represents the derivated changelog events counter value consumed by Robinhood. Obtained by derivating the
