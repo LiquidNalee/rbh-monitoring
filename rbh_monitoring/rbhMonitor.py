@@ -37,16 +37,16 @@ def graph():
         '-P', '--port', required=False, type=int, action='store', help='Carbon server port'
     )
     parser.add_argument(
-        '-H', '--host', required=False, action='store', help='Database host name'
+        '-H', '--host', required=False, action='store', nargs='*', help='Database host name'
     )
     parser.add_argument(
-        '-u', '--user', required=False, action='store', help='Database user name'
+        '-u', '--user', required=False, action='store', nargs='*', help='Database user name'
     )
     parser.add_argument(
-        '-x', '--password', required=False, action='store', help='Database password'
+        '-x', '--password', required=False, action='store', nargs='*', help='Database password'
     )
     parser.add_argument(
-        '-d', '--database', required=False, action='store', help='Database name'
+        '-d', '--database', required=False, action='store', nargs='*', help='Database name'
     )
     parser.add_argument(
         '-p', '--path', required=False, action='store', help='Path to data in Graphite'
@@ -147,22 +147,9 @@ def graph():
     else:
         dry_run = False
 
-    timestamp = time.time()
     logAgeTab = ['modif', 'last_mod', 'acs', 'last_access', 'creat', 'creation_time', 'db', 'last_mdchange']
     timespanTab = [('15min', 900), ('1h', 3600), ('12h', 43200), ('1d', 86400), ('1w', 604800), ('1m', 2592000), ('6m', 15552000), ('1y', 31104000), ('over1y', 0)]
-    total = [0, 0]
-    message = ''
-
-    print '\nStart time: %s' % timestamp
-
-    try:
-        connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
-        print 'Connecting to %s as %s on %s (using password:%s)' % (DB, DB_USER, DB_HOST, ('YES' if DB_PWD else 'NO'))
-    except MySQLdb.error, e:
-        print 'Error: Connection to MySQL Database failed', e[0], e[1]
-        exit(1)
-    else:
-        db = connection.cursor()
+    ite = 0
 
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -172,94 +159,119 @@ def graph():
         print 'Error: Connection to carbon server failed', exc
         exit(1)
 
-    try:
-        db.execute("""SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES""")
-        if args.verbose:
-            print '\nexecute => SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES'
-    except MySQLdb.Error, e:
-        print 'Error: Query failed to execute [Retrieving COUNT(size) and SUM(size)]', e[0], e[1]
-        exit(1)
-    else:
-        total = db.fetchone()
+    while (ite < max(len(DB_HOST), len(DB_USER), len(DB_PWD), len(DB))):
 
-    i = 0
-    length = len(timespanTab)
-    while (i < len(logAgeTab)):
+        timestamp = time.time()
+        total = [0, 0]
+        message = ''
+
+        print '\nStart time for %s: %s' % (DB_HOST[ite], timestamp)
+
         try:
-            query = buildQuery(i, length, logAgeTab, timespanTab)
-            db.execute(query)
-            if args.verbose:
-                print 'execute => %s' % query
-        except MySQLdb.Error, e:
-            print 'Error: Query failed to execute [BUILDING table]', e[0], e[1]
+            connection = MySQLdb.connect(DB_HOST[ite], DB_USER[ite], DB_PWD[ite], DB[ite])
+            print 'Connecting to %s as %s on %s (using password:%s)' % (DB[ite], DB_USER[ite], DB_HOST[ite], ('YES' if DB_PWD[ite] else 'NO'))
+        except MySQLdb.error, e:
+            print 'Error: Connection to MySQL Database failed', e[0], e[1]
             exit(1)
         else:
-            j = 0
-            row = [0, 0]
-            nextRow = db.fetchone()
+            db = connection.cursor()
 
+        try:
+            db.execute("""SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES""")
+            if args.verbose:
+                print '\nexecute => SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES'
+        except MySQLdb.Error, e:
+            print 'Error: Query failed to execute [Retrieving COUNT(size) and SUM(size)]', e[0], e[1]
+            exit(1)
+        else:
+            total = db.fetchone()
+
+        i = 0
+        length = len(timespanTab)
+        while (i < len(logAgeTab)):
+            try:
+                query = buildQuery(i, length, logAgeTab, timespanTab)
+                db.execute(query)
+                if args.verbose:
+                    print 'execute => %s' % query
+            except MySQLdb.Error, e:
+                print 'Error: Query failed to execute [BUILDING table]', e[0], e[1]
+                exit(1)
+            else:
+                j = 0
+                row = [0, 0]
+                nextRow = db.fetchone()
+
+                if args.verbose:
+                    print '=================================='
+
+                while (j < length):
+
+                    if (nextRow is not None and nextRow[0] == timespanTab[j][0]):
+                        row = (nextRow[1] + row[0], nextRow[2] + row[1])
+                        nextRow = db.fetchone()
+
+                    try:
+                        message += '%s.%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[0], timestamp)
+                        message += '%s.%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[0] / (total[0] if total[0] else 1), timestamp)
+                        message += '%s.%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[1], timestamp)
+                        message += '%s.%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[1] / (total[1] if total[1] else 1), timestamp)
+                        message += '%s.%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), timestamp)
+
+                        if args.verbose:
+                            print '%s' % message
+                    except:
+                        print 'Error: Message failed to be built from row = %s' % timespanTab[j][0]
+                        exit(1)
+
+                    try:
+                        if not dry_run:
+                            sock.sendall(message)
+                    except:
+                        print '\nError: Discussion with carbon server failed'
+                        exit(1)
+
+                    message = ''
+                    j += 1
             if args.verbose:
                 print '=================================='
+            i += 2
 
-            while (j < length):
-
-                if (nextRow is not None and nextRow[0] == timespanTab[j][0]):
-                    row = (nextRow[1] + row[0], nextRow[2] + row[1])
-                    nextRow = db.fetchone()
-
-                try:
-                    message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0], timestamp)
-                    message += '%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0] / (total[0] if total[0] else 1), timestamp)
-                    message += '%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1], timestamp)
-                    message += '%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (total[1] if total[1] else 1), timestamp)
-                    message += '%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), timestamp)
-
-                    if args.verbose:
-                        print '%s' % message
-                except:
-                    print 'Error: Message failed to be built from row = %' % row
-                    exit(1)
-
-                try:
-                    if not dry_run:
-                        sock.sendall(message)
-                except:
-                    print '\nError: Discussion with carbon server failed'
-                    exit(1)
-
-                message = ''
-                j += 1
-        if args.verbose:
-            print '=================================='
-        i += 2
-
-    try:
-        db.execute("""SELECT varname, value FROM VARS WHERE varname LIKE 'ChangelogCount_%'""")
-        if args.verbose:
-            print 'execute => SELECT varname, value FROM VARS WHERE varname LIKE \'ChangelogCount_%\''
-    except MySQLdb.Error, e:
-        print 'Error: Query failed to execute [Retrieving ChangelogCount]', e[0], e[1]
-        exit(1)
-    else:
-        message = ''
-        row = db.fetchone()
-        while (row is not None):
-            message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], timestamp)
-            row = db.fetchone()
         try:
-            if not dry_run:
-                sock.sendall(message)
+            db.execute("""SELECT varname, value FROM VARS WHERE varname LIKE 'ChangelogCount_%'""")
             if args.verbose:
-                print '\n%s' % message
-        except:
-            print 'Error: Discussion with carbon server failed'
+                print 'execute => SELECT varname, value FROM VARS WHERE varname LIKE \'ChangelogCount_%\''
+        except MySQLdb.Error, e:
+            print 'Error: Query failed to execute [Retrieving ChangelogCount]', e[0], e[1]
             exit(1)
+        else:
+            message = ''
+            row = db.fetchone()
+            while (row is not None):
+                message += '%s.%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), row[0], row[1], timestamp)
+                row = db.fetchone()
+            try:
+                if not dry_run:
+                    sock.sendall(message)
+                if args.verbose:
+                    print '\n%s' % message
+            except:
+                print 'Error: Discussion with carbon server failed'
+                exit(1)
+
+        try:
+            db.close()
+            print 'Closing connection to MySQL database'
+            print 'Execution time for %s (in sec): %s' % (DB_HOST[ite], time.time() - timestamp)
+        except:
+            print 'Error: Connection to database failed to close'
+            exit(1)
+
+        ite += 1
 
     try:
         sock.close()
-        db.close()
-        print 'Closing connection to Carbon server / MySQL database'
-        print 'Execution time (in sec): %s' % (time.time() - timestamp)
+        print 'Closing connection to Carbon server'
     except:
-        print 'Error: Connection to database/carbon server failed to close'
+        print 'Error: Connection to carbon server failed to close'
         exit(1)
