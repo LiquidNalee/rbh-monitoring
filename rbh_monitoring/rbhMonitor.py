@@ -170,8 +170,8 @@ def graph():
         try:
             connection = MySQLdb.connect(DB_HOST[ite], DB_USER[ite], DB_PWD[ite], DB[ite])
             print 'Connecting to %s as %s on %s (using password:%s)' % (DB[ite], DB_USER[ite], DB_HOST[ite], ('YES' if DB_PWD[ite] else 'NO'))
-        except MySQLdb.error, e:
-            print 'Error: Connection to MySQL Database failed', e[0], e[1]
+        except MySQLdb.Error as e:
+            print 'Error: Connection to MySQL Database failed\n', e[0], e[1]
             exit(1)
         else:
             db = connection.cursor()
@@ -180,8 +180,8 @@ def graph():
             db.execute("""SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES""")
             if args.verbose:
                 print '\nexecute => SELECT COUNT(size) AS cnt, SUM(size) AS vol FROM ENTRIES'
-        except MySQLdb.Error, e:
-            print 'Error: Query failed to execute [Retrieving COUNT(size) and SUM(size)]', e[0], e[1]
+        except MySQLdb.Error as e:
+            print 'Error: Query failed to execute [Retrieving COUNT(size) and SUM(size)]\n', e[0], e[1]
             exit(1)
         else:
             total = db.fetchone()
@@ -194,8 +194,8 @@ def graph():
                 db.execute(query)
                 if args.verbose:
                     print 'execute => %s' % query
-            except MySQLdb.Error, e:
-                print 'Error: Query failed to execute [BUILDING table]', e[0], e[1]
+            except MySQLdb.Error as e:
+                print 'Error: Query failed to execute [BUILDING table]\n', e[0], e[1]
                 exit(1)
             else:
                 j = 0
@@ -241,8 +241,8 @@ def graph():
             db.execute("""SELECT varname, value FROM VARS WHERE varname LIKE 'ChangelogCount_%'""")
             if args.verbose:
                 print 'execute => SELECT varname, value FROM VARS WHERE varname LIKE \'ChangelogCount_%\''
-        except MySQLdb.Error, e:
-            print 'Error: Query failed to execute [Retrieving ChangelogCount]', e[0], e[1]
+        except MySQLdb.Error as e:
+            print 'Error: Query failed to execute [Retrieving ChangelogCount]\n', e[0], e[1]
             exit(1)
         else:
             message = ''
