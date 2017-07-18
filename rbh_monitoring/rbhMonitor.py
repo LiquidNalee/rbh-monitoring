@@ -158,7 +158,7 @@ def graph():
     try:
         connection = MySQLdb.connect(DB_HOST, DB_USER, DB_PWD, DB)
         print 'Connecting to %s as %s on %s (using password:%s)' % (DB, DB_USER, DB_HOST, ('YES' if DB_PWD else 'NO'))
-    except MySQLdb.error, e:
+    except MySQLdb.Error, e:
         print 'Error: Connection to MySQL Database failed', e[0], e[1]
         exit(1)
     else:
