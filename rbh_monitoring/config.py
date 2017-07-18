@@ -18,24 +18,24 @@ except:
 try:
     db_host = Config.get('rbh-monitoring_api', 'db_host')
 except:
-    db_host = ''
+    db_host = []
 
 try:
     db_user = Config.get('rbh-monitoring_api', 'db_user')
 except:
-    db_user = ''
+    db_user = []
 
 try:
     db_pwd = Config.get('rbh-monitoring_api', 'db_pwd')
 except:
-    db_pwd = ''
+    db_pwd = []
 
 try:
     db = Config.get('rbh-monitoring_api', 'db')
 except:
-    db = ''
+    db = []
 
 try:
     path_graph = Config.get('rbh-monitoring_api', 'path_graph')
 except:
-    path_graph = ''
+    path_graph = []
