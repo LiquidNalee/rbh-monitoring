@@ -14,6 +14,13 @@
       "label": "Graphite metric prefix",
       "value": "sboucen",
       "description": ""
+    },
+    {
+      "name": "VAR_DB",
+      "type": "constant",
+      "label": "Database name",
+      "value": "rbh3_insys_cfm_fr",
+      "description": ""
     }
   ],
   "__requires": [
@@ -45,7 +52,6 @@
   "hideControls": false,
   "id": null,
   "links": [],
-  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
@@ -81,7 +87,7 @@
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "description": "Represents the average size of files modified within a given timespan. Obtained by dividing a timespan's total volume accessed by the timespan's total inode count accessed",
+          "description": "Represents the average size of files modified within given timespans. Obtained by dividing the total volume modified within a timespan by the total inode count modified within that timespan.",
           "fill": 0,
           "height": "300",
           "id": 13,
@@ -111,49 +117,54 @@
           "targets": [
             {
               "refId": "G",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "refId": "H",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "refId": "I",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "refId": "E",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1w, '< 7d')"
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1w, '< 7d')",
+              "textEditor": false
             },
             {
               "refId": "D",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1d, '< 1d')"
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1d, '< 1d')",
+              "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.12h, '< 12h')"
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.12h, '< 12h')",
+              "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1h, '< 1h')"
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1h, '< 1h')",
+              "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.15min, '< 15min')"
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.15min, '< 15min')",
+              "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "TemperatureGraph-Modif (avgFileSize)",
+          "title": "avgFileSize (Modification)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -227,7 +238,7 @@
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
           "decimals": 1,
-          "description": "Represents the average size of files created within a given timespan. Obtained by dividing a timespan's total volume created by the timespan's total inode count created",
+          "description": "Represents the average size of files created within given timespans. Obtained by dividing the total volume created within a timespan by the inode count created within that timespan.",
           "fill": 0,
           "height": "300",
           "id": 8,
@@ -258,56 +269,61 @@
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1w, '< 7d')"
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1w, '< 7d')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1d, '< 1d')"
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1d, '< 1d')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.12h, '< 12h')"
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.12h, '< 12h')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1h, '< 1h')"
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1h, '< 1h')",
+              "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.15min, '< 15min')"
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.15min, '< 15min')",
+              "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "TemperatureGraph-Creation (avgFileSize)",
+          "title": "avgFileSize (Creation)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -370,7 +386,7 @@
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "description": "Represents the average size of files accessed within a given timespan. Obtained by dividing a timespan's total volume modified by the timespan's total inode count modified",
+          "description": "Represents the average size of files accessed within given timespans. Obtained by dividing the total volume accessed within a timespan by the total inode count accessed within that timespan.",
           "fill": 0,
           "height": "300",
           "id": 10,
@@ -400,49 +416,54 @@
           "targets": [
             {
               "refId": "G",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "refId": "H",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "refId": "I",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1w, '< 7d')"
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1w, '< 7d')",
+              "textEditor": false
             },
             {
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1d, '< 1d')"
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1d, '< 1d')",
+              "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.12h, '< 12h')"
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.12h, '< 12h')",
+              "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1h, '< 1h')"
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1h, '< 1h')",
+              "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.15min, '< 15min')"
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.15min, '< 15min')",
+              "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "TemperatureGraph-Access (avgFileSize)",
+          "title": "avgFileSize (Access)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -539,7 +560,7 @@
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
           "decimals": 1,
-          "description": "Represents the inodes accessed (positive y) and modified (negative y) within a given timespan ( < 7 days).  Obtained by stacking a timespan's total inode count accessed and modified on different y-axis",
+          "description": "Represents the accessed (positive y) and modified (negative y) inode count within given timespans ( < 7 days). Obtained by stacking a timespan's total inode count accessed and modified on separate y-axis.",
           "fill": 7,
           "height": "300",
           "id": 15,
@@ -608,53 +629,61 @@
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.cnt.1w, '< 7d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1w, '< 7d [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.cnt.1d, '< 1d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1d, '< 1d [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.cnt.12h, '< 12h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.12h, '< 12h [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.cnt.1h, '< 1h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1h, '< 1h [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.cnt.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.cnt.1w, '< 7d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1w, '< 7d [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.cnt.1d, '< 1d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1d, '< 1d [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.cnt.12h, '< 12h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.12h, '< 12h [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.cnt.1h, '< 1h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1h, '< 1h [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.cnt.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -746,7 +775,7 @@
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
           "decimals": 1,
-          "description": "Represents the volume accessed (positive y) and modified (negative y) within a given timespan ( < 7 days).  Obtained by stacking a timespan's total volume accessed and modified on different y-axis",
+          "description": "Represents the accessed (positive y) and modified (negative y) volume within given timespans ( < 7 days).  Obtained by stacking a timespan's total volume accessed and modified on separate y-axis.",
           "fill": 7,
           "height": "300",
           "id": 16,
@@ -815,53 +844,61 @@
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.size.1w, '< 7d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.1w, '< 7d [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.size.1d, '< 1d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.1d, '< 1d [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.size.12h, '< 12h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.12h, '< 12h [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.size.1h, '< 1h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.1h, '< 1h [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.size.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.size.1w, '< 7d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.1w, '< 7d [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.size.1d, '< 1d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.1d, '< 1d [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.size.12h, '< 12h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.12h, '< 12h [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.size.1h, '< 1h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.1h, '< 1h [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.size.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -884,7 +921,7 @@
           },
           "yaxes": [
             {
-              "format": "short",
+              "format": "decbytes",
               "label": "Write (Volumes) / Read (Volumes)",
               "logBase": 1,
               "max": null,
@@ -1034,100 +1071,110 @@
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.acsTempGraph.cnt.over1y, 'over 1y [Read]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.acsTempGraph.cnt.over1y, 'over 1y [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.acsTempGraph.cnt.1y, '< 1y [Read]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1y, '< 1y [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.acsTempGraph.cnt.6m, '< 6m [Read]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.acsTempGraph.cnt.6m, '< 6m [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.acsTempGraph.cnt.1m, '<  1m [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1m, '<  1m [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.cnt.1w, '< 7d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1w, '< 7d [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.cnt.1d, '< 1d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1d, '< 1d [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.cnt.12h, '< 12h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.12h, '< 12h [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.cnt.1h, '< 1h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1h, '< 1h [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.cnt.15min, '< 15min [Read]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.acsTempGraph.cnt.15min, '< 15min [Read]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "J",
-              "target": "alias($prefix.modifTempGraph.cnt.over1y, 'over 1y [Write]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.modifTempGraph.cnt.over1y, 'over 1y [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "K",
-              "target": "alias($prefix.modifTempGraph.cnt.1y, '< 1y [Write]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1y, '< 1y [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "L",
-              "target": "alias($prefix.modifTempGraph.cnt.6m, '< 6m [Write]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.modifTempGraph.cnt.6m, '< 6m [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "M",
-              "target": "alias($prefix.modifTempGraph.cnt.1m, '<  1m [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1m, '<  1m [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.cnt.1w, '< 7d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1w, '< 7d [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.cnt.1d, '< 1d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1d, '< 1d [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.cnt.12h, '< 12h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.12h, '< 12h [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.cnt.1h, '< 1h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1h, '< 1h [Write]')",
+              "textEditor": true
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.cnt.15min, '< 15min [Write]')",
-              "textEditor": false
+              "target": "alias($prefix.$db.modifTempGraph.cnt.15min, '< 15min [Write]')",
+              "textEditor": true
             }
           ],
           "thresholds": [],
@@ -1218,7 +1265,7 @@
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
           "decimals": 1,
-          "description": "Represents the volume accessed (positive y) and modified (negative y) within a given timespan.  Obtained by stacking a timespan's volume accessed and modified on different y-axis",
+          "description": "Represents the volume accessed (positive y) and modified (negative y) within given timespans. Obtained by stacking a timespan's volume accessed and modified on separate y-axis",
           "fill": 4,
           "height": "600",
           "id": 14,
@@ -1287,106 +1334,116 @@
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.acsTempGraph.size.over1y, 'over 1y [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.over1y, 'over 1y [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.acsTempGraph.size.1y, '< 1y [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1y, '< 1y [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.acsTempGraph.size.6m, '< 6m [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.6m, '< 6m [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.acsTempGraph.size.1m, '<  1m [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.1m, '<  1m [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.size.1w, '< 7d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.1w, '< 7d [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.size.1d, '< 1d [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.1d, '< 1d [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.size.12h, '< 12h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.12h, '< 12h [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.size.1h, '< 1h [Read]')"
+              "target": "alias($prefix.$db.acsTempGraph.size.1h, '< 1h [Read]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.size.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "J",
-              "target": "alias($prefix.modifTempGraph.size.over1y, 'over 1y [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.over1y, 'over 1y [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "K",
-              "target": "alias($prefix.modifTempGraph.size.1y, '< 1y [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1y, '< 1y [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "L",
-              "target": "alias($prefix.modifTempGraph.size.6m, '< 6m [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.6m, '< 6m [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "M",
-              "target": "alias($prefix.modifTempGraph.size.1m, '<  1m [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.1m, '<  1m [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.size.1w, '< 7d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.1w, '< 7d [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.size.1d, '< 1d [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.1d, '< 1d [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.size.12h, '< 12h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.12h, '< 12h [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.size.1h, '< 1h [Write]')"
+              "target": "alias($prefix.$db.modifTempGraph.size.1h, '< 1h [Write]')",
+              "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.size.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
           "thresholds": [],
           "timeFrom": null,
           "timeShift": null,
-          "title": "Filesystem (volume)",
+          "title": "Filesystem temperature (volume)",
           "tooltip": {
             "shared": true,
             "sort": 0,
@@ -1437,9 +1494,9 @@
             "derivative(sboucen.chnglogActivity.ChangelogCount_CREAT)": "#7EB26D",
             "derivative(sboucen.chnglogActivity.ChangelogCount_UNLNK)": "#BF1B00"
           },
-          "bars": true,
+          "bars": false,
           "datasource": "${DS_RBHMETRIC}",
-          "description": "Represents the derivated count of changelog events consumed by Robinhood. Obtained by derivating the queried ChangelogCount values in robinhood's db from table VARS (Change the filter settings to select event types)",
+          "description": "Represents the derivated changelog events counter value consumed by Robinhood. Obtained by derivating the queried ChangelogCount values in robinhood's db from table VARS (Change the filter settings to select event types). The data is updated every 15 minutes. One point represents the number of selected events occuring in the last 15 minutes.",
           "fill": 0,
           "height": "200",
           "id": 9,
@@ -1454,7 +1511,7 @@
             "total": false,
             "values": false
           },
-          "lines": false,
+          "lines": true,
           "linewidth": 2,
           "links": [],
           "nullPointMode": "connected",
@@ -1465,11 +1522,12 @@
           "seriesOverrides": [],
           "span": 12,
           "stack": false,
-          "steppedLine": true,
+          "steppedLine": false,
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByMetric(derivative($prefix.chnglogActivity.$changelogFilter))"
+              "target": "aliasByMetric(derivative($prefix.$db.chnglogActivity.$changelogFilter))",
+              "textEditor": false
             }
           ],
           "thresholds": [],
@@ -1540,6 +1598,23 @@
         "type": "constant"
       },
       {
+        "current": {
+          "value": "${VAR_DB}",
+          "text": "${VAR_DB}"
+        },
+        "hide": 2,
+        "label": "Database name",
+        "name": "db",
+        "options": [
+          {
+            "value": "${VAR_DB}",
+            "text": "${VAR_DB}"
+          }
+        ],
+        "query": "${VAR_DB}",
+        "type": "constant"
+      },
+      {
         "allValue": null,
         "current": {},
         "datasource": "${DS_RBHMETRIC}",
@@ -1562,7 +1637,7 @@
     ]
   },
   "time": {
-    "from": "now-24h",
+    "from": "now-15m",
     "to": "now"
   },
   "timepicker": {
@@ -1592,5 +1667,5 @@
   },
   "timezone": "browser",
   "title": "rbhMonitoring",
-  "version": 5
+  "version": 7
 }
