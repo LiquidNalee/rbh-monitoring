@@ -126,7 +126,7 @@ Default result for rbh-monitoring :
 
 -PATH_GRAPH/                        (Tree's root directory named <prefix> from arguments/config)
     -acsTempGraph/                  (Entries grouped by last_access_time)
-        -cnt/                       (Number of inodes last accessed within a timespan)
+        -cnt/                       (Number of inodes accessed within a timespan)
             -12h                    (timespan = < 12 hours)
             -15min                  (timespan = < 15 minutes)
             -1d                     (timespan = < 1 day)
@@ -137,10 +137,10 @@ Default result for rbh-monitoring :
             -6m                     (timespan = < 6 month)
             -over1y                 (timespan = > 1 year)
             
-        -cntAvg/                    (Percentage of inodes last accessed within a timespan proportional to FS' total)
-        -size/                      (Total volume last accessed within a timespan)
-        -sizeAvg/                   (Percentage of total volume last accessed within a timespan proportional to FS' total)
-        -sizeFileAvg/               (Average volume of files last accessed within a timespan)
+        -cntAvg/                    (Percentage of inodes accessed within a timespan proportional to FS' total)
+        -size/                      (Total volume accessed within a timespan)
+        -sizeAvg/                   (Percentage of total volume accessed within a timespan proportional to FS' total)
+        -sizeFileAvg/               (Average volume of files accessed within a timespan)
         
     -chnglogActivity/               (Changelog event counters)
         -ChangelogCount_ATIME       (Access time update)
@@ -196,20 +196,20 @@ Row 1 => Panel 1 : Represents the average size of files modified within given ti
                    An 'avg' table is shown on the right of that panel which represents
                    the average size of files accessed in the selected grafana timespan.
 
-Row 2 => Panel 1 : Represents the accessed (positive y) and modified (negative y) inode count within given timespans.
-                   This graph only covers the activity within a week (unlike the temperature graph in row3-Panel1) for
-                   visibility purpose.
+Row 2 => Panel 1 : Represents the accessed (positive y) and modified (negative y) inode count within
+                   given timespans. This graph only covers the activity within a week (unlike the
+                   temperature graph in row3-Panel1) for visibility purpose.
                    Obtained by stacking a timespan's total inode count accessed and modified on separate y-axis.
                    
-      => Panel 1 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
-                   This graph only covers the activity within a week (unlike the temperature graph in row3-Panel2) for
-                   visibility purpose.
+      => Panel 2 : Represents the accessed (positive y) and modified (negative y) volume within
+                   given timespans. This graph only covers the activity within a week (unlike the
+                   temperature graph in row3-Panel2) for visibility purpose.
                    Obtained by stacking a timespan's total volume accessed and modified on separate y-axis.
 
 Row 3 => Panel 1 : Represents the accessed (positive y) and modified (negative y) inode count within given timespans.
                    Obtained by stacking a timespan's total inode count accessed and modified on separate y-axis.
                    
-      => Panel 1 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
+      => Panel 2 : Represents the accessed (positive y) and modified (negative y) volume within given timespans.
                    Obtained by stacking a timespan's total volume accessed and modified on separate y-axis.
                    
 Row 4 => Panel 1 : Represents the derivated changelog events counter value consumed by Robinhood.
