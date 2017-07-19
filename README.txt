@@ -175,6 +175,10 @@ VII - Grafana dashboard explanation
 'rbh-monitoring.json' is a Grafana dashboard template (see https://grafana.com/dashboards/2276) that relies on a Graphite
 server that was filled using rbh-monitoring.
 
+$prefix : Path to the graphite directory (found in arguments/configuration file)
+$db : Name of one of the database monitored by this command you wish to display
+$chnglogFilter : Names of the event counts you wish to display
+
 Row 1 => Panel 1 : Represents the average size of files modified within given timespans.
                    Obtained by dividing the total volume modified within a timespan by the
                    total inode count modified within that timespan.
