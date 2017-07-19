@@ -52,6 +52,7 @@
   "hideControls": false,
   "id": null,
   "links": [],
+  "refresh": "1m",
   "rows": [
     {
       "collapse": false,
@@ -1514,6 +1515,8 @@
           "lines": true,
           "linewidth": 2,
           "links": [],
+          "maxDataPoints": "",
+          "minSpan": null,
           "nullPointMode": "connected",
           "percentage": false,
           "pointradius": 1,
@@ -1637,7 +1640,7 @@
     ]
   },
   "time": {
-    "from": "now-15m",
+    "from": "now-12h",
     "to": "now"
   },
   "timepicker": {
@@ -1667,5 +1670,5 @@
   },
   "timezone": "browser",
   "title": "rbhMonitoring",
-  "version": 7
+  "version": 9
 }
