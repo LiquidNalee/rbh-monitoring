@@ -61,7 +61,7 @@
             "< 1y": "#584477",
             "< 6m": "#0A50A1",
             "< 7d": "#6ED0E0",
-            "over 1y": "#6D1F62",
+            "over 1y": "#6D1F62"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -185,7 +185,7 @@
             "< 1y": "#584477",
             "< 6m": "#0A50A1",
             "< 7d": "#6ED0E0",
-            "over 1y": "#6D1F62",
+            "over 1y": "#6D1F62"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -318,7 +318,7 @@
             "< 1y": "#584477",
             "< 6m": "#0A50A1",
             "< 7d": "#6ED0E0",
-            "over 1y": "#6D1F62",
+            "over 1y": "#6D1F62"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -463,7 +463,7 @@
             "< 7d [Read]": "#7EB26D",
             "< 7d [Write]": "#7EB26D",
             "over 1y [Read]": "#6D1F62",
-            "over 1y [Write]": "#6D1F62",
+            "over 1y [Write]": "#6D1F62"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -650,7 +650,7 @@
             "< 7d [Read]": "#7EB26D",
             "< 7d [Write]": "#7EB26D",
             "over 1y [Read]": "#6D1F62",
-            "over 1y [Write]": "#6D1F62",
+            "over 1y [Write]": "#6D1F62"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -849,7 +849,7 @@
             "< 7d [Read]": "#6ED0E0",
             "< 7d [Write]": "#6ED0E0",
             "over 1y [Read]": "#6D1F62",
-            "over 1y [Write]": "#6D1F62",
+            "over 1y [Write]": "#6D1F62"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -1084,7 +1084,7 @@
             "< 7d [Read]": "#6ED0E0",
             "< 7d [Write]": "#6ED0E0",
             "over 1y [Read]": "#6D1F62",
-            "over 1y [Write]": "#6D1F62",
+            "over 1y [Write]": "#6D1F62"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
