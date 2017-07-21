@@ -102,10 +102,10 @@ template for '~/.rbh-monitoring.ini' :
 [rbh-monitoring_api]
 carbon_server = "..."
 carbon_port = 2003
-db_host = "..."
-db_user = "robinhood"
-db_pwd = "..."
-db = "robinhood_lustre"
+db_host = ["localhost", ...]
+db_user = ["robinhood", ...]
+db_pwd = ["password", ...]
+db = ["robinhood_lustre", ...]
 path_graph = "..."
 
 (Will require the tar to be rebuilt)
