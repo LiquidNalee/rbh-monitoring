@@ -158,7 +158,8 @@ def graph():
     try:
         sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
         sock.connect((CARBON_SERVER, CARBON_PORT))
-        print 'Connecting to %s using port(%s) [TCP]' % (CARBON_SERVER, CARBON_PORT)
+        if args.verbose:
+            print 'Connecting to %s using port(%s) [TCP]' % (CARBON_SERVER, CARBON_PORT)
     except socket.error, exc:
         print 'Error: Connection to carbon server failed', exc
         exit(1)
@@ -169,11 +170,13 @@ def graph():
         total = [0, 0]
         message = ''
 
-        print '\nStart time for %s: %s' % (DB_HOST[ite], timestamp)
+        if args.verbose:
+            print '\nStart time for %s: %s' % (DB_HOST[ite], timestamp)
 
         try:
             connection = MySQLdb.connect(DB_HOST[ite], DB_USER[ite], DB_PWD[ite], DB[ite])
-            print 'Connecting to %s as %s on %s (using password:%s)' % (DB[ite], DB_USER[ite], DB_HOST[ite], ('YES' if DB_PWD[ite] else 'NO'))
+            if args.verbose:
+                print 'Connecting to %s as %s on %s (using password:%s)' % (DB[ite], DB_USER[ite], DB_HOST[ite], ('YES' if DB_PWD[ite] else 'NO'))
         except MySQLdb.Error as e:
             print 'Error: Connection to MySQL Database failed\n', e[0], e[1]
             exit(1)
@@ -216,11 +219,11 @@ def graph():
                         nextRow = db.fetchone()
 
                     try:
-                        message += '%s.%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[0], timestamp)
-                        message += '%s.%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[0] / (total[0] if total[0] else 1), timestamp)
-                        message += '%s.%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[1], timestamp)
-                        message += '%s.%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[1] / (total[1] if total[1] else 1), timestamp)
-                        message += '%s.%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), timestamp)
+                        message += '%s.%sTempGraph.cnt.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0], timestamp)
+                        message += '%s.%s.%sTempGraph.cntAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[0] / (total[0] if total[0] else 1), timestamp)
+                        message += '%s.%s.%sTempGraph.size.%s %i %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1], timestamp)
+                        message += '%s.%s.%sTempGraph.sizeAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (total[1] if total[1] else 1), timestamp)
+                        message += '%s.%s.%sTempGraph.sizeFileAvg.%s %s %s\n' % (PATH_GRAPH, logAgeTab[i], timespanTab[j][0], row[1] / (row[0] if row[0] else 1), timestamp)
 
                         if args.verbose:
                             print '%s' % message
@@ -252,7 +255,7 @@ def graph():
             message = ''
             row = db.fetchone()
             while (row is not None):
-                message += '%s.%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, DB_HOST[ite].replace('.', '_'), row[0], row[1], timestamp)
+                message += '%s.chnglogActivity.%s %s %s\n' % (PATH_GRAPH, row[0], row[1], timestamp)
                 row = db.fetchone()
             try:
                 if not dry_run:
@@ -265,8 +268,9 @@ def graph():
 
         try:
             db.close()
-            print 'Closing connection to MySQL database'
-            print 'Execution time for %s (in sec): %s' % (DB_HOST[ite], time.time() - timestamp)
+            if args.verbose:
+                print 'Closing connection to MySQL database'
+                print 'Execution time for %s (in sec): %s' % (DB_HOST[ite], time.time() - timestamp)
         except:
             print 'Error: Connection to database failed to close'
             exit(1)
@@ -275,7 +279,8 @@ def graph():
 
     try:
         sock.close()
-        print 'Closing connection to Carbon server'
+        if args.verbose:
+            print 'Closing connection to Carbon server'
     except:
         print 'Error: Connection to carbon server failed to close'
         exit(1)
