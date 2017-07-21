@@ -12,7 +12,7 @@
       "name": "VAR_PREFIX",
       "type": "constant",
       "label": "Graphite metric prefix",
-      "value": "",
+      "value": "sboucen.rbh3_insys_cfm_fr.",
       "description": ""
     }
   ],
@@ -39,6 +39,7 @@
   "annotations": {
     "list": []
   },
+  "editMode": false,
   "editable": true,
   "gnetId": null,
   "graphTooltip": 0,
@@ -52,6 +53,16 @@
       "panels": [
         {
           "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1d": "#7EB26D",
+            "1h": "#EF843C",
+            "1w": "#6ED0E0",
+            "6 month": "#705DA0",
             "< 12h": "#EAB839",
             "< 15min": "#BF1B00",
             "< 1d": "#7EB26D",
@@ -61,6 +72,12 @@
             "< 6m": "#0A50A1",
             "< 7d": "#6ED0E0",
             "over 1y": "#6D1F62",
+            "sboucen.acsTempGraph.size.12h": "#EAB839",
+            "sboucen.acsTempGraph.size.15min": "#BF1B00",
+            "sboucen.acsTempGraph.size.1d": "#7EB26D",
+            "sboucen.acsTempGraph.size.1h": "#EF843C",
+            "sboucen.acsTempGraph.size.1m": "#1F78C1",
+            "sboucen.acsTempGraph.size.1w": "#6ED0E0"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -94,47 +111,47 @@
           "targets": [
             {
               "refId": "G",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "refId": "H",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "refId": "I",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "refId": "E",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1w, '< 7d')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1w, '< 7d')",
               "textEditor": false
             },
             {
               "refId": "D",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1d, '< 1d')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1d, '< 1d')",
               "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.12h, '< 12h')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.12h, '< 12h')",
               "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.1h, '< 1h')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1h, '< 1h')",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.modifTempGraph.sizeFileAvg.15min, '< 15min')",
+              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.15min, '< 15min')",
               "textEditor": false
             }
           ],
@@ -176,6 +193,15 @@
         },
         {
           "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1h": "#EF843C",
+            "1y": "#3F2B5B",
+            "6 month": "#705DA0",
             "< 12h": "#EAB839",
             "< 15min": "#BF1B00",
             "< 1d": "#7EB26D",
@@ -185,6 +211,23 @@
             "< 6m": "#0A50A1",
             "< 7d": "#6ED0E0",
             "over 1y": "#6D1F62",
+            "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
+            "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
+            "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
+            "sboucen.acsTempGraph.sizeAvg.1h": "#EF843C",
+            "sboucen.acsTempGraph.sizeAvg.1m": "#1F78C1",
+            "sboucen.acsTempGraph.sizeAvg.1w": "#6ED0E0",
+            "sboucen.creatTempGraph.size.12h": "#EAB839",
+            "sboucen.creatTempGraph.size.15min": "#BF1B00",
+            "sboucen.creatTempGraph.size.1d": "#7EB26D",
+            "sboucen.creatTempGraph.size.1h": "#EF843C",
+            "sboucen.creatTempGraph.size.1m": "#1F78C1",
+            "sboucen.creatTempGraph.size.1w": "#6ED0E0",
+            "sboucen.creatTempGraph.sizeAvg.12h": "#EAB839",
+            "sboucen.creatTempGraph.sizeAvg.15min": "#BF1B00",
+            "sboucen.creatTempGraph.sizeAvg.1h": "#EF843C",
+            "sboucen.creatTempGraph.sizeAvg.1m": "#1F78C1",
+            "sboucen.creatTempGraph.sizeAvg.1w": "#6ED0E0"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -220,54 +263,54 @@
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1w, '< 7d')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1w, '< 7d')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1d, '< 1d')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1d, '< 1d')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.12h, '< 12h')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.12h, '< 12h')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.1h, '< 1h')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1h, '< 1h')",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.creatTempGraph.sizeFileAvg.15min, '< 15min')",
+              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.15min, '< 15min')",
               "textEditor": false
             }
           ],
@@ -309,6 +352,16 @@
         },
         {
           "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1d": "#7EB26D",
+            "1h": "#EF843C",
+            "1w": "#6ED0E0",
+            "6 month": "#705DA0",
             "< 12h": "#EAB839",
             "< 15min": "#BF1B00",
             "< 1d": "#7EB26D",
@@ -318,6 +371,12 @@
             "< 6m": "#0A50A1",
             "< 7d": "#6ED0E0",
             "over 1y": "#6D1F62",
+            "sboucen.acsTempGraph.size.12h": "#EAB839",
+            "sboucen.acsTempGraph.size.15min": "#BF1B00",
+            "sboucen.acsTempGraph.size.1d": "#7EB26D",
+            "sboucen.acsTempGraph.size.1h": "#EF843C",
+            "sboucen.acsTempGraph.size.1m": "#1F78C1",
+            "sboucen.acsTempGraph.size.1w": "#6ED0E0"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -351,47 +410,47 @@
           "targets": [
             {
               "refId": "G",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "refId": "H",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "refId": "I",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1w, '< 7d')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1w, '< 7d')",
               "textEditor": false
             },
             {
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1d, '< 1d')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1d, '< 1d')",
               "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.12h, '< 12h')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.12h, '< 12h')",
               "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.1h, '< 1h')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1h, '< 1h')",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.sizeFileAvg.15min, '< 15min')",
+              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.15min, '< 15min')",
               "textEditor": false
             }
           ],
@@ -445,24 +504,52 @@
       "panels": [
         {
           "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1d": "#7EB26D",
+            "1h": "#EF843C",
+            "1min": "#1F78C1",
+            "1w": "#6ED0E0",
+            "1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "<  1m": "#1F78C1",
             "<  1m [Read]": "#1F78C1",
             "<  1m [Write]": "#1F78C1",
+            "< 12h": "#EAB839",
             "< 12h [Read]": "#E0752D",
             "< 12h [Write]": "#E0752D",
+            "< 15min": "#BF1B00",
             "< 15min [Read]": "#890F02",
             "< 15min [Write]": "#890F02",
+            "< 1d": "#7EB26D",
             "< 1d [Read]": "#EAB839",
             "< 1d [Write]": "#EAB839",
+            "< 1h": "#EF843C",
             "< 1h [Read]": "#BF1B00",
             "< 1h [Write]": "#BF1B00",
+            "< 1y": "#614D93",
             "< 1y [Read]": "#584477",
             "< 1y [Write]": "#584477",
+            "< 6m": "#0A50A1",
             "< 6m [Read]": "#0A437C",
             "< 6m [Write]": "#0A437C",
+            "< 7d": "#6ED0E0",
             "< 7d [Read]": "#7EB26D",
             "< 7d [Write]": "#7EB26D",
+            "over 1y": "#6D1F62",
             "over 1y [Read]": "#6D1F62",
             "over 1y [Write]": "#6D1F62",
+            "over1y": "#052B51",
+            "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
+            "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
+            "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
+            "sboucen.acsTempGraph.sizeAvg.1h": "#EF843C",
+            "sboucen.acsTempGraph.sizeAvg.1m": "#1F78C1",
+            "sboucen.acsTempGraph.sizeAvg.1w": "#6ED0E0"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -536,61 +623,61 @@
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.cnt.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1w, '< 7d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.cnt.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1d, '< 1d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.cnt.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.12h, '< 12h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.cnt.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1h, '< 1h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.cnt.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.cnt.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1w, '< 7d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.cnt.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1d, '< 1d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.cnt.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.12h, '< 12h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.cnt.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1h, '< 1h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.cnt.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -632,24 +719,52 @@
         },
         {
           "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1d": "#7EB26D",
+            "1h": "#EF843C",
+            "1min": "#1F78C1",
+            "1w": "#6ED0E0",
+            "1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "<  1m": "#1F78C1",
             "<  1m [Read]": "#1F78C1",
             "<  1m [Write]": "#1F78C1",
+            "< 12h": "#EAB839",
             "< 12h [Read]": "#E0752D",
             "< 12h [Write]": "#E0752D",
+            "< 15min": "#BF1B00",
             "< 15min [Read]": "#890F02",
             "< 15min [Write]": "#890F02",
+            "< 1d": "#7EB26D",
             "< 1d [Read]": "#EAB839",
             "< 1d [Write]": "#EAB839",
+            "< 1h": "#EF843C",
             "< 1h [Read]": "#BF1B00",
             "< 1h [Write]": "#BF1B00",
+            "< 1y": "#614D93",
             "< 1y [Read]": "#584477",
             "< 1y [Write]": "#584477",
+            "< 6m": "#0A50A1",
             "< 6m [Read]": "#0A437C",
             "< 6m [Write]": "#0A437C",
+            "< 7d": "#6ED0E0",
             "< 7d [Read]": "#7EB26D",
             "< 7d [Write]": "#7EB26D",
+            "over 1y": "#6D1F62",
             "over 1y [Read]": "#6D1F62",
             "over 1y [Write]": "#6D1F62",
+            "over1y": "#052B51",
+            "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
+            "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
+            "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
+            "sboucen.acsTempGraph.sizeAvg.1h": "#EF843C",
+            "sboucen.acsTempGraph.sizeAvg.1m": "#1F78C1",
+            "sboucen.acsTempGraph.sizeAvg.1w": "#6ED0E0"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -723,61 +838,61 @@
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.size.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1w, '< 7d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.size.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1d, '< 1d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.size.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.12h, '< 12h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.size.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1h, '< 1h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.size.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.size.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1w, '< 7d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.size.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1d, '< 1d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.size.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.12h, '< 12h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.size.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1h, '< 1h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.size.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -831,24 +946,52 @@
       "panels": [
         {
           "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1d": "#7EB26D",
+            "1h": "#EF843C",
+            "1min": "#1F78C1",
+            "1w": "#6ED0E0",
+            "1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "<  1m": "#1F78C1",
             "<  1m [Read]": "#1F78C1",
             "<  1m [Write]": "#1F78C1",
+            "< 12h": "#EAB839",
             "< 12h [Read]": "#EAB839",
             "< 12h [Write]": "#EAB839",
+            "< 15min": "#BF1B00",
             "< 15min [Read]": "#890F02",
             "< 15min [Write]": "#890F02",
+            "< 1d": "#7EB26D",
             "< 1d [Read]": "#7EB26D",
             "< 1d [Write]": "#7EB26D",
+            "< 1h": "#EF843C",
             "< 1h [Read]": "#C15C17",
             "< 1h [Write]": "#C15C17",
+            "< 1y": "#614D93",
             "< 1y [Read]": "#584477",
             "< 1y [Write]": "#584477",
+            "< 6m": "#0A50A1",
             "< 6m [Read]": "#0A437C",
             "< 6m [Write]": "#0A437C",
+            "< 7d": "#6ED0E0",
             "< 7d [Read]": "#6ED0E0",
             "< 7d [Write]": "#6ED0E0",
+            "over 1y": "#6D1F62",
             "over 1y [Read]": "#6D1F62",
             "over 1y [Write]": "#6D1F62",
+            "over1y": "#052B51",
+            "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
+            "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
+            "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
+            "sboucen.acsTempGraph.sizeAvg.1h": "#EF843C",
+            "sboucen.acsTempGraph.sizeAvg.1m": "#1F78C1",
+            "sboucen.acsTempGraph.sizeAvg.1w": "#6ED0E0"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -922,109 +1065,109 @@
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.acsTempGraph.cnt.over1y, 'over 1y [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.over1y, 'over 1y [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.acsTempGraph.cnt.1y, '< 1y [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1y, '< 1y [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.acsTempGraph.cnt.6m, '< 6m [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.6m, '< 6m [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.acsTempGraph.cnt.1m, '<  1m [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1m, '<  1m [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.cnt.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1w, '< 7d [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.cnt.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1d, '< 1d [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.cnt.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.12h, '< 12h [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.cnt.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.1h, '< 1h [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.cnt.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.cnt.15min, '< 15min [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "J",
-              "target": "alias($prefix.modifTempGraph.cnt.over1y, 'over 1y [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.over1y, 'over 1y [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "K",
-              "target": "alias($prefix.modifTempGraph.cnt.1y, '< 1y [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1y, '< 1y [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "L",
-              "target": "alias($prefix.modifTempGraph.cnt.6m, '< 6m [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.6m, '< 6m [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "M",
-              "target": "alias($prefix.modifTempGraph.cnt.1m, '<  1m [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1m, '<  1m [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.cnt.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1w, '< 7d [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.cnt.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1d, '< 1d [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.cnt.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.12h, '< 12h [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.cnt.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.1h, '< 1h [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.cnt.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.cnt.15min, '< 15min [Write]')",
               "textEditor": true
             }
           ],
@@ -1066,24 +1209,52 @@
         },
         {
           "aliasColors": {
+            "1 day": "#7EB26D",
+            "1 month": "#1F78C1",
+            "1 week": "#6ED0E0",
+            "1 year": "#3F2B5B",
+            "12h": "#EAB839",
+            "15min": "#BF1B00",
+            "1d": "#7EB26D",
+            "1h": "#EF843C",
+            "1min": "#1F78C1",
+            "1w": "#6ED0E0",
+            "1y": "#3F2B5B",
+            "6 month": "#705DA0",
+            "<  1m": "#1F78C1",
             "<  1m [Read]": "#1F78C1",
             "<  1m [Write]": "#1F78C1",
+            "< 12h": "#EAB839",
             "< 12h [Read]": "#EAB839",
             "< 12h [Write]": "#EAB839",
+            "< 15min": "#BF1B00",
             "< 15min [Read]": "#890F02",
             "< 15min [Write]": "#890F02",
+            "< 1d": "#7EB26D",
             "< 1d [Read]": "#7EB26D",
             "< 1d [Write]": "#7EB26D",
+            "< 1h": "#EF843C",
             "< 1h [Read]": "#C15C17",
             "< 1h [Write]": "#C15C17",
+            "< 1y": "#614D93",
             "< 1y [Read]": "#584477",
             "< 1y [Write]": "#584477",
+            "< 6m": "#0A50A1",
             "< 6m [Read]": "#0A437C",
             "< 6m [Write]": "#0A437C",
+            "< 7d": "#6ED0E0",
             "< 7d [Read]": "#6ED0E0",
             "< 7d [Write]": "#6ED0E0",
+            "over 1y": "#6D1F62",
             "over 1y [Read]": "#6D1F62",
             "over 1y [Write]": "#6D1F62",
+            "over1y": "#052B51",
+            "sboucen.acsTempGraph.sizeAvg.12h": "#EAB839",
+            "sboucen.acsTempGraph.sizeAvg.15min": "#BF1B00",
+            "sboucen.acsTempGraph.sizeAvg.1d": "#7EB26D",
+            "sboucen.acsTempGraph.sizeAvg.1h": "#EF843C",
+            "sboucen.acsTempGraph.sizeAvg.1m": "#1F78C1",
+            "sboucen.acsTempGraph.sizeAvg.1w": "#6ED0E0"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -1157,109 +1328,109 @@
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.acsTempGraph.size.over1y, 'over 1y [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.over1y, 'over 1y [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.acsTempGraph.size.1y, '< 1y [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1y, '< 1y [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.acsTempGraph.size.6m, '< 6m [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.6m, '< 6m [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.acsTempGraph.size.1m, '<  1m [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1m, '<  1m [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.acsTempGraph.size.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1w, '< 7d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.acsTempGraph.size.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1d, '< 1d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.acsTempGraph.size.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.12h, '< 12h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.acsTempGraph.size.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.1h, '< 1h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.acsTempGraph.size.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$db.acsTempGraph.size.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "J",
-              "target": "alias($prefix.modifTempGraph.size.over1y, 'over 1y [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.over1y, 'over 1y [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "K",
-              "target": "alias($prefix.modifTempGraph.size.1y, '< 1y [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1y, '< 1y [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "L",
-              "target": "alias($prefix.modifTempGraph.size.6m, '< 6m [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.6m, '< 6m [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "M",
-              "target": "alias($prefix.modifTempGraph.size.1m, '<  1m [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1m, '<  1m [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.modifTempGraph.size.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1w, '< 7d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.modifTempGraph.size.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1d, '< 1d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.modifTempGraph.size.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.12h, '< 12h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.modifTempGraph.size.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.1h, '< 1h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.modifTempGraph.size.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$db.modifTempGraph.size.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -1314,6 +1485,8 @@
         {
           "aliasColors": {
             "ChangelogCount_UNLNK)": "#BF1B00",
+            "derivative(sboucen.chnglogActivity.ChangelogCount_CREAT)": "#7EB26D",
+            "derivative(sboucen.chnglogActivity.ChangelogCount_UNLNK)": "#BF1B00"
           },
           "bars": false,
           "datasource": "${DS_RBHMETRIC}",
@@ -1349,7 +1522,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByMetric(derivative($prefix.chnglogActivity.$changelogFilter))",
+              "target": "aliasByMetric(derivative($prefix.$db.chnglogActivity.$changelogFilter))",
               "textEditor": false
             }
           ],
@@ -1473,5 +1646,5 @@
   },
   "timezone": "browser",
   "title": "rbhMonitoring",
-  "version": 11
+  "version": 13
 }
