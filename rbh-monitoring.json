@@ -16,9 +16,9 @@
       "description": ""
     },
     {
-      "name": "VAR_DB",
+      "name": "VAR_FS
       "type": "constant",
-      "label": "Database name",
+      "label": "Filesystem name",
       "value": "",
       "description": ""
     }
@@ -102,47 +102,47 @@
           "targets": [
             {
               "refId": "G",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "refId": "H",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "refId": "I",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "refId": "E",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1w, '< 7d')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.1w, '< 7d')",
               "textEditor": false
             },
             {
               "refId": "D",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1d, '< 1d')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.1d, '< 1d')",
               "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.12h, '< 12h')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.12h, '< 12h')",
               "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.1h, '< 1h')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.1h, '< 1h')",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.$db.modifTempGraph.sizeFileAvg.15min, '< 15min')",
+              "target": "alias($prefix.$fs.modifTempGraph.sizeFileAvg.15min, '< 15min')",
               "textEditor": false
             }
           ],
@@ -228,54 +228,54 @@
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1w, '< 7d')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.1w, '< 7d')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1d, '< 1d')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.1d, '< 1d')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.12h, '< 12h')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.12h, '< 12h')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.1h, '< 1h')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.1h, '< 1h')",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.$db.creatTempGraph.sizeFileAvg.15min, '< 15min')",
+              "target": "alias($prefix.$fs.creatTempGraph.sizeFileAvg.15min, '< 15min')",
               "textEditor": false
             }
           ],
@@ -359,47 +359,47 @@
           "targets": [
             {
               "refId": "G",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.over1y, 'over 1y')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.over1y, 'over 1y')",
               "textEditor": false
             },
             {
               "refId": "H",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1y, '< 1y')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.1y, '< 1y')",
               "textEditor": false
             },
             {
               "refId": "I",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.6m, '< 6m')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.6m, '< 6m')",
               "textEditor": false
             },
             {
               "refId": "F",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1m, '< 1m')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.1m, '< 1m')",
               "textEditor": false
             },
             {
               "refId": "E",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1w, '< 7d')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.1w, '< 7d')",
               "textEditor": false
             },
             {
               "refId": "D",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1d, '< 1d')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.1d, '< 1d')",
               "textEditor": false
             },
             {
               "refId": "C",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.12h, '< 12h')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.12h, '< 12h')",
               "textEditor": false
             },
             {
               "refId": "B",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.1h, '< 1h')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.1h, '< 1h')",
               "textEditor": false
             },
             {
               "refId": "A",
-              "target": "alias($prefix.$db.acsTempGraph.sizeFileAvg.15min, '< 15min')",
+              "target": "alias($prefix.$fs.acsTempGraph.sizeFileAvg.15min, '< 15min')",
               "textEditor": false
             }
           ],
@@ -544,61 +544,61 @@
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1w, '< 7d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1d, '< 1d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.12h, '< 12h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1h, '< 1h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1w, '< 7d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1d, '< 1d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.12h, '< 12h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1h, '< 1h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -731,61 +731,61 @@
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.$db.acsTempGraph.size.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1w, '< 7d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.$db.acsTempGraph.size.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1d, '< 1d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.$db.acsTempGraph.size.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.12h, '< 12h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.$db.acsTempGraph.size.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1h, '< 1h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.$db.acsTempGraph.size.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.$db.modifTempGraph.size.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1w, '< 7d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.$db.modifTempGraph.size.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1d, '< 1d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.$db.modifTempGraph.size.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.12h, '< 12h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.$db.modifTempGraph.size.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1h, '< 1h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.$db.modifTempGraph.size.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -930,109 +930,109 @@
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.over1y, 'over 1y [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.over1y, 'over 1y [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1y, '< 1y [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1y, '< 1y [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.6m, '< 6m [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.6m, '< 6m [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1m, '<  1m [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1m, '<  1m [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1w, '< 7d [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1d, '< 1d [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.12h, '< 12h [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.1h, '< 1h [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.$db.acsTempGraph.cnt.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.cnt.15min, '< 15min [Read]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "J",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.over1y, 'over 1y [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.over1y, 'over 1y [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "K",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1y, '< 1y [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1y, '< 1y [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "L",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.6m, '< 6m [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.6m, '< 6m [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "M",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1m, '<  1m [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1m, '<  1m [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1w, '< 7d [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1d, '< 1d [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.12h, '< 12h [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.1h, '< 1h [Write]')",
               "textEditor": true
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.$db.modifTempGraph.cnt.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.cnt.15min, '< 15min [Write]')",
               "textEditor": true
             }
           ],
@@ -1165,109 +1165,109 @@
             {
               "hide": false,
               "refId": "H",
-              "target": "alias($prefix.$db.acsTempGraph.size.over1y, 'over 1y [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.over1y, 'over 1y [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "I",
-              "target": "alias($prefix.$db.acsTempGraph.size.1y, '< 1y [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1y, '< 1y [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "G",
-              "target": "alias($prefix.$db.acsTempGraph.size.6m, '< 6m [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.6m, '< 6m [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "F",
-              "target": "alias($prefix.$db.acsTempGraph.size.1m, '<  1m [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1m, '<  1m [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "E",
-              "target": "alias($prefix.$db.acsTempGraph.size.1w, '< 7d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1w, '< 7d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "D",
-              "target": "alias($prefix.$db.acsTempGraph.size.1d, '< 1d [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1d, '< 1d [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "C",
-              "target": "alias($prefix.$db.acsTempGraph.size.12h, '< 12h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.12h, '< 12h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "B",
-              "target": "alias($prefix.$db.acsTempGraph.size.1h, '< 1h [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.1h, '< 1h [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "A",
-              "target": "alias($prefix.$db.acsTempGraph.size.15min, '< 15min [Read]')",
+              "target": "alias($prefix.$fs.acsTempGraph.size.15min, '< 15min [Read]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "J",
-              "target": "alias($prefix.$db.modifTempGraph.size.over1y, 'over 1y [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.over1y, 'over 1y [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "K",
-              "target": "alias($prefix.$db.modifTempGraph.size.1y, '< 1y [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1y, '< 1y [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "L",
-              "target": "alias($prefix.$db.modifTempGraph.size.6m, '< 6m [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.6m, '< 6m [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "M",
-              "target": "alias($prefix.$db.modifTempGraph.size.1m, '<  1m [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1m, '<  1m [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "N",
-              "target": "alias($prefix.$db.modifTempGraph.size.1w, '< 7d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1w, '< 7d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "O",
-              "target": "alias($prefix.$db.modifTempGraph.size.1d, '< 1d [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1d, '< 1d [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "P",
-              "target": "alias($prefix.$db.modifTempGraph.size.12h, '< 12h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.12h, '< 12h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "Q",
-              "target": "alias($prefix.$db.modifTempGraph.size.1h, '< 1h [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.1h, '< 1h [Write]')",
               "textEditor": false
             },
             {
               "hide": false,
               "refId": "S",
-              "target": "alias($prefix.$db.modifTempGraph.size.15min, '< 15min [Write]')",
+              "target": "alias($prefix.$fs.modifTempGraph.size.15min, '< 15min [Write]')",
               "textEditor": false
             }
           ],
@@ -1357,7 +1357,7 @@
           "targets": [
             {
               "refId": "A",
-              "target": "aliasByMetric(derivative($prefix.$db.chnglogActivity.$changelogFilter))",
+              "target": "aliasByMetric(derivative($prefix.$fs.chnglogActivity.$changelogFilter))",
               "textEditor": false
             }
           ],
@@ -1430,19 +1430,19 @@
       },
       {
         "current": {
-          "value": "${VAR_DB}",
-          "text": "${VAR_DB}"
+          "value": "${VAR_FS}",
+          "text": "${VAR_FS}"
         },
         "hide": 2,
         "label": "Database name",
         "name": "db",
         "options": [
           {
-            "value": "${VAR_DB}",
-            "text": "${VAR_DB}"
+            "value": "${VAR_FS}",
+            "text": "${VAR_FS}"
           }
         ],
-        "query": "${VAR_DB}",
+        "query": "${VAR_FS}",
         "type": "constant"
       },
       {
