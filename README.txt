@@ -102,11 +102,14 @@ template for '~/.rbh-monitoring.ini' :
 [rbh-monitoring_api]
 carbon_server = "..."
 carbon_port = 2003
-db_host = ["localhost", ...]
-db_user = ["robinhood", ...]
-db_pwd = ["password", ...]
-db = ["robinhood_lustre", ...]
+db_host = localhost
+db_user = robinhood
+db_pwd = password
+db = robinhood_lustre
 path_graph = "..."
+
+It is recommended to only put the carbon server information in the configuration file.
+Use the arguments to specifiy the settings for each of your SQL database.
 
 (Will require the tar to be rebuilt)
 In 'rbh-monitoring/rbh_monitoring/rbhMonitor.py' :
@@ -223,6 +226,4 @@ Row 3 => Panel 1 : Represents the accessed and modified inode count within given
 Row 4 => Panel 1 : Represents the derivated changelog events counter value consumed by Robinhood.
                    Obtained by derivating the queried ChangelogCount values in robinhood's db from table VARS.
                    (Change the filter settings to select event types)
-                   The data is updated every 15 minutes. One point represents the number of selected
-                   events occuring in the last 15 minutes.
                    The events meaning is explained in section (VI).
