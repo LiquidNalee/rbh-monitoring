@@ -3,7 +3,6 @@
 import socket
 import time
 import argparse
-# from multiprocessing.pool import ThreadPool
 from threading import Thread
 from sys import exit
 from rbh_monitoring import config
@@ -314,7 +313,7 @@ def graph():
         sock.sendall("".join(results))
 
     if args.verbose:
-       print 'Execution time for %s (in sec): %s' % (DB_HOST, time.time() - timestamp)
+        print 'Execution time for %s (in sec): %s' % (DB_HOST, time.time() - timestamp)
 
     try:
         sock.close()

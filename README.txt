@@ -151,7 +151,7 @@ Default result for rbh-monitoring :
         -ChangelogCount_CREAT       (Regular file creation)
         -ChangelogCount_CTIME       (Creation time update)
         -ChangelogCount_HLINK       (Hard link creation)
-        -ChangelogCount_HSM         ()
+        -ChangelogCount_HSM         (Hierarchical Storage Management)
         -ChangelogCount_LYOUT       (Layout operation)
         -ChangelogCount_MARK        (Internal recordkeeping)
         -ChangelogCount_MIGRT       (File/directory migration)
@@ -179,7 +179,6 @@ VII - Grafana dashboard explanation
 server that was filled using rbh-monitoring.
 
 $prefix : Path to the graphite directory (found in arguments/configuration file)
-$db : Name of one of the database monitored by this command you wish to display
 $chnglogFilter : Names of the event counts you wish to display
 
 Row 1 => Panel 1 : Represents the average size of files modified within given timespans.
